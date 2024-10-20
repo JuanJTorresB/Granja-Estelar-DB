@@ -146,7 +146,7 @@
         fechaInicio DATETIME,
         fechaFin DATETIME,
         descripcion VARCHAR(500),
-        estado ENUM("Pendiente","En Progreso","Terminada")
+        estado ENUM("Pendiente","En Progreso","Terminada"),
         idTipoTarea INT,
         FOREIGN KEY (idTipoTarea) REFERENCES TipoTarea(idTipoTarea)
     );
