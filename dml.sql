@@ -257,47 +257,37 @@ INSERT INTO ProductoXVenta (idVenta, idProducto, cantidad) VALUES
 (4, 4, 50),
 (5, 5, 60);
 
-INSERT INTO
-  horario (iddia, horainicio, horafin)
-VALUES
-  (1, '08:00:00', '12:00:00'),
-  (2, '09:00:00', '13:00:00'),
-  (3, '10:00:00', '14:00:00'),
-  (4, '11:00:00', '15:00:00'),
-  (5, '12:00:00', '16:00:00');
+INSERT INTO horario (iddia, horainicio, horafin) VALUES
+(1, '08:00:00', '12:00:00'),
+(2, '09:00:00', '13:00:00'),
+(3, '10:00:00', '14:00:00'),
+(4, '11:00:00', '15:00:00'),
+(5, '12:00:00', '16:00:00');
 
-INSERT INTO
-  empleadoxhorario (idempleado, idhorario)
-VALUES
-  (1, 1),
-  (2, 2),
-  (3, 3),
-  (4, 4),
-  (5, 5);
+INSERT INTO empleadoxhorario (idempleado, idhorario) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
 
-INSERT INTO
-  empleadoxtarea (idempleado, idtarea)
-VALUES
-  (1, 1),
-  (2, 2),
-  (3, 3),
-  (4, 4),
-  (5, 5);
+INSERT INTO empleadoxtarea (idempleado, idtarea) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
 
-INSERT INTO
-  mantenimiento (idmaquinaria, fecha, costo)
-VALUES
-  (1, '2024-10-01', 50000),
-  (2, '2024-10-02', 75000),
-  (3, '2024-10-03', 60000),
-  (4, '2024-10-04', 80000),
-  (5, '2024-10-05', 55000);
+INSERT INTO mantenimiento (idmaquinaria, fecha, costo) VALUES
+(1, '2024-10-01', 50000),
+(2, '2024-10-02', 75000),
+(3, '2024-10-03', 60000),
+(4, '2024-10-04', 80000),
+(5, '2024-10-05', 55000);
 
-INSERT INTO
-  tareaxcultivo (idtarea, idcultivo)
-VALUES
-  (1, 1),
-  (2, 2),
-  (3, 3),
-  (4, 4),
-  (5, 5);
+INSERT INTO tareaxcultivo (idtarea, idcultivo) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
