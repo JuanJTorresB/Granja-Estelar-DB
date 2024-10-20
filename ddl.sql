@@ -6,161 +6,168 @@
 
 
     CREATE TABLE Zona (
-        idZona INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idZona INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(255),
         area DECIMAL(10, 2)
     );
 
     CREATE TABLE TipoRecinto (
-        idTipoRecinto INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idTipoRecinto INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(100)
     );
 
     CREATE TABLE Recinto (
-        idRecinto INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idTipoRecinto INTEGER,
-        idZona INTEGER,
+        idRecinto INT PRIMARY KEY AUTO_INCREMENT,
+        idTipoRecinto INT,
+        idZona INT,
         nombre VARCHAR(100),
         FOREIGN KEY (idTipoRecinto) REFERENCES TipoRecinto(idTipoRecinto),
         FOREIGN KEY (idZona) REFERENCES Zona(idZona)
     );
 
     CREATE TABLE TipoInsumo (
-        idTipoInsumo INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idTipoInsumo INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(100)
     );
 
     CREATE TABLE Insumo (
-        idInsumo INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idInsumo INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(255),
-        stock INTEGER,
-        idTipoInsumo INTEGER,
+        stock INT,
+        idTipoInsumo INT,
         FOREIGN KEY (idTipoInsumo) REFERENCES TipoInsumo(idTipoInsumo)
     );
 
     CREATE TABLE Proveedor (
-        idProveedor INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idProveedor INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(100),
         activo ENUM('Activo', 'Inactivo')
     );
 
     CREATE TABLE InsumoXProveedor (
-        idInsumoXProveedor INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idInsumo INTEGER,
-        idProveedor INTEGER,
+        idInsumoXProveedor INT PRIMARY KEY AUTO_INCREMENT,
+        idInsumo INT,
+        idProveedor INT,
         costo DECIMAL(10, 2),
         FOREIGN KEY (idInsumo) REFERENCES Insumo(idInsumo),
         FOREIGN KEY (idProveedor) REFERENCES Proveedor(idProveedor)
     );
 
     CREATE TABLE OrdenCompra (
-        idOrdenCompra INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idOrdenCompra INT PRIMARY KEY AUTO_INCREMENT,
         fecha DATE,
         total DECIMAL(10, 2)
     );
 
     CREATE TABLE InsumoXOrdenCompra (
-        idInsumoXOrdenCompra INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idInsumo INTEGER,
-        idOrdenCompra INTEGER,
-        cantidad INTEGER,
+        idInsumoXOrdenCompra INT PRIMARY KEY AUTO_INCREMENT,
+        idInsumo INT,
+        idOrdenCompra INT,
+        cantidad INT,
         FOREIGN KEY (idInsumo) REFERENCES Insumo(idInsumo),
         FOREIGN KEY (idOrdenCompra) REFERENCES OrdenCompra(idOrdenCompra)
     );
 
     CREATE TABLE OrdenCompraXProveedor (
-        idOrdenCompraXProveedor INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idOrdenCompra INTEGER,
-        idProveedor INTEGER,
+        idOrdenCompraXProveedor INT PRIMARY KEY AUTO_INCREMENT,
+        idOrdenCompra INT,
+        idProveedor INT,
         FOREIGN KEY (idOrdenCompra) REFERENCES OrdenCompra(idOrdenCompra),
         FOREIGN KEY (idProveedor) REFERENCES Proveedor(idProveedor)
     );
 
     CREATE TABLE TipoCultivo (
-        idTipoCultivo INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idTipoCultivo INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(255),
         inicioTemporada DATE,
         fnTemporada DATE
     );
 
     CREATE TABLE Cultivo (
-        idCultivo INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idCultivo INT PRIMARY KEY AUTO_INCREMENT,
         area DECIMAL(10, 2),
         fechaSiembra DATE,
         fechaCosecha DATE,
-        idTipoCultivo INTEGER,
-        idZona INTEGER,
+        idTipoCultivo INT,
+        idZona INT,
         FOREIGN KEY (idTipoCultivo) REFERENCES TipoCultivo(idTipoCultivo),
         FOREIGN KEY (idZona) REFERENCES Zona(idZona)
     );
 
     CREATE TABLE CultivoXInsumo (
-        idCultivoXInsumo INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idCultivo INTEGER,
-        idInsumo INTEGER,
-        cantidad INTEGER,
+        idCultivoXInsumo INT PRIMARY KEY AUTO_INCREMENT,
+        idCultivo INT,
+        idInsumo INT,
+        cantidad INT,
         FOREIGN KEY (idCultivo) REFERENCES Cultivo(idCultivo),
         FOREIGN KEY (idInsumo) REFERENCES Insumo(idInsumo)
     );
 
     CREATE TABLE RecintoXInsumo (
-        idRecintoXInsumo INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idRecinto INTEGER,
-        idInsumo INTEGER,
-        cantidad INTEGER,
+        idRecintoXInsumo INT PRIMARY KEY AUTO_INCREMENT,
+        idRecinto INT,
+        idInsumo INT,
+        cantidad INT,
         FOREIGN KEY (idRecinto) REFERENCES Recinto(idRecinto),
         FOREIGN KEY (idInsumo) REFERENCES Insumo(idInsumo)
     );
 
     CREATE TABLE Categoria (
-        idCategoria INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idCategoria INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(100)
     );
 
     CREATE TABLE Producto (
-        idProducto INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idCategoria INTEGER,
+        idProducto INT PRIMARY KEY AUTO_INCREMENT,
+        idCategoria INT,
         nombre VARCHAR(255),
-        stock INTEGER,
+        stock INT,
         precio DECIMAL(10, 2),
         FOREIGN KEY (idCategoria) REFERENCES Categoria(idCategoria)
     );
 
     CREATE TABLE RecintoXProducto (
-        idRecintoXProducto INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idRecinto INTEGER,
-        idProducto INTEGER,
-        cantidad INTEGER,
+        idRecintoXProducto INT PRIMARY KEY AUTO_INCREMENT,
+        idRecinto INT,
+        idProducto INT,
+        cantidad INT,
         FOREIGN KEY (idRecinto) REFERENCES Recinto(idRecinto),
         FOREIGN KEY (idProducto) REFERENCES Producto(idProducto)
     );
 
+        CREATE TABLE TipoTarea (
+        idTipoTarea INT PRIMARY KEY AUTO_INCREMENT,
+        nombre VARCHAR(255)
+    );
+
     CREATE TABLE Tarea (
-        idTarea INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idTarea INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(255),
         fechaInicio DATETIME,
         fechaFin DATETIME,
         descripcion VARCHAR(500),
         estado ENUM("Pendiente","En Progreso","Terminada")
+        idTipoTarea INT,
+        FOREIGN KEY (idTipoTarea) REFERENCES TipoTarea(idTipoTarea)
     );
 
     CREATE TABLE TareaXRecinto (
-        idTareaXRecinto INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idTarea INTEGER,
-        idRecinto INTEGER,
+        idTareaXRecinto INT PRIMARY KEY AUTO_INCREMENT,
+        idTarea INT,
+        idRecinto INT,
         FOREIGN KEY (idTarea) REFERENCES Tarea(idTarea),
         FOREIGN KEY (idRecinto) REFERENCES Recinto(idRecinto)
     );
 
     CREATE TABLE TipoAnimal (
-        idTipoAnimal INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idTipoAnimal INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(100)
     );
 
     CREATE TABLE Animal (
-        idAnimal INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idTipoAnimal INTEGER,
-        idRecinto INTEGER,
+        idAnimal INT PRIMARY KEY AUTO_INCREMENT,
+        idTipoAnimal INT,
+        idRecinto INT,
         estado ENUM('Sano', 'Enfermo'),
         peso DECIMAL(10, 2),
         FOREIGN KEY (idTipoAnimal) REFERENCES TipoAnimal(idTipoAnimal),
@@ -168,8 +175,8 @@
     );
 
     CREATE TABLE ConsultaVeterinaria (
-        idConsulta INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idAnimal INTEGER,
+        idConsulta INT PRIMARY KEY AUTO_INCREMENT,
+        idAnimal INT,
         fecha DATETIME,
         costo DECIMAL(10, 2),
         estado ENUM('Realizada', 'Por Realizar'),
@@ -178,78 +185,78 @@
 
 
     CREATE TABLE Almacen (
-        idAlmacen INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idZona INTEGER,
+        idAlmacen INT PRIMARY KEY AUTO_INCREMENT,
+        idZona INT,
         nombre VARCHAR(255),
         FOREIGN KEY (idZona) REFERENCES Zona(idZona)
     );
 
     CREATE TABLE TipoHerramienta (
-        idTipoHerramienta INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idTipoHerramienta INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(100)
     );
 
     CREATE TABLE Herramienta (
-        idHerramienta INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idTipoHerramienta INTEGER,
+        idHerramienta INT PRIMARY KEY AUTO_INCREMENT,
+        idTipoHerramienta INT,
         FOREIGN KEY (idTipoHerramienta) REFERENCES TipoHerramienta(idTipoHerramienta)
     );
 
     CREATE TABLE TipoMaquinaria (
-        idTipoMaquinaria INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idTipoMaquinaria INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(255)
     );
 
     CREATE TABLE Maquinaria (
-        idMaquinaria INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idMaquinaria INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(255),
-        idTipoMaquinaria INTEGER,
+        idTipoMaquinaria INT,
         fechaAdquisicion DATE,
         estado ENUM('En Mantenimiento', 'Disponible', 'Ocupada'),
         FOREIGN KEY (idTipoMaquinaria) REFERENCES TipoMaquinaria(idTipoMaquinaria)
     );
 
     CREATE TABLE Mantenimiento (
-        idMantenimiento INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idMaquinaria INTEGER,
+        idMantenimiento INT PRIMARY KEY AUTO_INCREMENT,
+        idMaquinaria INT,
         fecha DATE,
         costo DECIMAL(10, 2),
         FOREIGN KEY (idMaquinaria) REFERENCES Maquinaria(idMaquinaria)
     );
 
     CREATE TABLE AlmacenXHerramienta (
-        idAlmacenXHerramienta INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idAlmacen INTEGER,
-        idHerramienta INTEGER,
-        stock INTEGER,
+        idAlmacenXHerramienta INT PRIMARY KEY AUTO_INCREMENT,
+        idAlmacen INT,
+        idHerramienta INT,
+        stock INT,
         FOREIGN KEY (idAlmacen) REFERENCES Almacen(idAlmacen),
         FOREIGN KEY (idHerramienta) REFERENCES Herramienta(idHerramienta)
     );
 
     CREATE TABLE AlmacenXMaquinaria (
-        idAlmacenXMaquinaria INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idAlmacen INTEGER,
-        idMaquinaria INTEGER,
+        idAlmacenXMaquinaria INT PRIMARY KEY AUTO_INCREMENT,
+        idAlmacen INT,
+        idMaquinaria INT,
         FOREIGN KEY (idAlmacen) REFERENCES Almacen(idAlmacen),
         FOREIGN KEY (idMaquinaria) REFERENCES Maquinaria(idMaquinaria)
     );
 
 
     CREATE TABLE Cliente (
-        idCliente INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idCliente INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(255),
         telefono CHAR(10)
     );
 
 
     CREATE TABLE Cargo (
-        idCargo INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idCargo INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(100)
     );
 
     CREATE TABLE Empleado (
-        idEmpleado INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idCargo INTEGER,
+        idEmpleado INT PRIMARY KEY AUTO_INCREMENT,
+        idCargo INT,
         nombre VARCHAR(255),
         estado ENUM('Activo', 'Inactivo', 'No Disponible'),
         fechaContratacion DATE,
@@ -258,9 +265,9 @@
     );
 
     CREATE TABLE Venta (
-        idVenta INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idCliente INTEGER,
-        idEmpleado INTEGER,
+        idVenta INT PRIMARY KEY AUTO_INCREMENT,
+        idCliente INT,
+        idEmpleado INT,
         fecha DATETIME,
         total DECIMAL(10, 2),
         FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente),
@@ -268,66 +275,66 @@
     );
 
     CREATE TABLE ProductoXVenta (
-        idProductoXVenta INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idVenta INTEGER,
-        idProducto INTEGER,
-        cantidad INTEGER,
+        idProductoXVenta INT PRIMARY KEY AUTO_INCREMENT,
+        idVenta INT,
+        idProducto INT,
+        cantidad INT,
         FOREIGN KEY (idVenta) REFERENCES Venta(idVenta),
         FOREIGN KEY (idProducto) REFERENCES Producto(idProducto)
     );
 
     CREATE TABLE TareaXCultivo (
-        idTareaXCultivo INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idTarea INTEGER,
-        idCultivo INTEGER,
+        idTareaXCultivo INT PRIMARY KEY AUTO_INCREMENT,
+        idTarea INT,
+        idCultivo INT,
         FOREIGN KEY (idTarea) REFERENCES Tarea(idTarea),
         FOREIGN KEY (idCultivo) REFERENCES Cultivo(idCultivo)
     );
 
     CREATE TABLE Dia (
-        idDia INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idDia INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(10)
     );
 
     CREATE TABLE Horario (
-        idHorario INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idDia INTEGER,
+        idHorario INT PRIMARY KEY AUTO_INCREMENT,
+        idDia INT,
         horaInicio TIME,
         horaFin TIME,
         FOREIGN KEY (idDia) REFERENCES Dia(idDia)
     );
 
     CREATE TABLE Historico (
-        idHistorico INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idHistorico INT PRIMARY KEY AUTO_INCREMENT,
         fecha DATE,
         total DECIMAL(10, 2)
     );
 
     CREATE TABLE Entidad (
-        idEntidad INTEGER PRIMARY KEY AUTO_INCREMENT,
+        idEntidad INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(255)
     );
 
     CREATE TABLE Log (
-        idLog INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idEntidad INTEGER,
+        idLog INT PRIMARY KEY AUTO_INCREMENT,
+        idEntidad INT,
         mensaje VARCHAR(500),
         fecha DATETIME,
         FOREIGN KEY (idEntidad) REFERENCES Entidad(idEntidad)
     );
 
     CREATE TABLE EmpleadoxTarea (
-        idEmpleadoxTarea INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idEmpleado INTEGER NOT NULL,
-        idTarea INTEGER NOT NULL,
+        idEmpleadoxTarea INT PRIMARY KEY AUTO_INCREMENT,
+        idEmpleado INT NOT NULL,
+        idTarea INT NOT NULL,
         FOREIGN KEY (idEmpleado) REFERENCES Empleado(idEmpleado),
         FOREIGN KEY (idTarea) REFERENCES Tarea(idTarea)
     );
 
     CREATE TABLE EmpleadoxHorario (
-        idEmpleadoxHorario INTEGER PRIMARY KEY AUTO_INCREMENT,
-        idEmpleado INTEGER NOT NULL,
-        idHorario INTEGER NOT NULL,
+        idEmpleadoxHorario INT PRIMARY KEY AUTO_INCREMENT,
+        idEmpleado INT NOT NULL,
+        idHorario INT NOT NULL,
         FOREIGN KEY (idEmpleado) REFERENCES Empleado(idEmpleado),
         FOREIGN KEY (idHorario) REFERENCES Horario(idHorario)
     );
