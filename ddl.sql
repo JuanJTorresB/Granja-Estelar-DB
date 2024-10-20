@@ -142,12 +142,11 @@
 
     CREATE TABLE Tarea (
         idTarea INT PRIMARY KEY AUTO_INCREMENT,
-        nombre VARCHAR(255),
+        idTipoTarea INT,
         fechaInicio DATETIME,
         fechaFin DATETIME,
         descripcion VARCHAR(500),
         estado ENUM("Pendiente","En Progreso","Terminada"),
-        idTipoTarea INT,
         FOREIGN KEY (idTipoTarea) REFERENCES TipoTarea(idTipoTarea)
     );
 
