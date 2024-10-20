@@ -125,7 +125,11 @@ INSERT INTO RecintoXProducto (idRecinto, idProducto, cantidad) VALUES
 (5, 5, 40);
 
 INSERT INTO Tarea (nombre, fechaInicio, fechaFin, descripcion, estado) VALUES 
-('Alimentar animales', '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el corral', 'Pendiente'),
+('Alimentar animales', '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
+('Alimentar animales', '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
+('Alimentar animales', '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
+('Alimentar animales', '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
+('Recolectar Miel', '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
 ('Revisar cultivos', '2024-10-02 08:00:00', '2024-10-02 10:00:00', 'Revisar el estado de los cultivos de maíz', 'Pendiente'),
 ('Mantenimiento de herramientas', '2024-10-03 08:00:00', '2024-10-03 10:00:00', 'Revisar herramientas y reparar si es necesario', 'Pendiente'),
 ('Control de plagas', '2024-10-04 08:00:00', '2024-10-04 10:00:00', 'Aplicar tratamiento para plagas', 'Pendiente'),
@@ -136,7 +140,7 @@ INSERT INTO TareaXRecinto (idTarea, idRecinto) VALUES
 (2, 2),
 (3, 3),
 (4, 4),
-(5, 5);
+(1, 1);
 
 INSERT INTO TipoAnimal (nombre) VALUES 
 ('Vaca'),
@@ -205,46 +209,39 @@ INSERT INTO TipoMaquinaria (nombre) VALUES
 ('Desmalezadora');
 
 INSERT INTO Maquinaria (nombre, idTipoMaquinaria, fechaAdquisicion, estado) VALUES 
-('Tractor John Deere', 1, '2024-01-01', 'Operativa'),
-('Cosechadora Case IH', 2, '2024-02-15', 'Operativa'),
-('Cultivadora Massey Ferguson', 3, '2024-03-10', 'En reparación'),
-('Remolque Kubota', 4, '2024-04-20', 'Operativa'),
-('Desmalezadora Stihl', 5, '2024-05-05', 'Operativa');
+('Tractor John Deere', 1, '2024-01-01', 'Disponible'),
+('Cosechadora Case IH', 2, '2024-02-15', 'Disponible'),
+('Cultivadora Massey Ferguson', 3, '2024-03-10', 'En Mantenimiento'),
+('Remolque Kubota', 4, '2024-04-20', 'Disponible'),
+('Desmalezadora Stihl', 5, '2024-05-05', 'Disponible');
 
-INSERT INTO MaquinariaXRecinto (idMaquinaria, idRecinto) VALUES 
+INSERT INTO AlmacenXMaquinaria (idAlmacen, idMaquinaria) VALUES 
 (1, 1),
 (2, 2),
 (3, 3),
 (4, 4),
 (5, 5);
 
-INSERT INTO MaquinariaXInsumo (idMaquinaria, idInsumo, cantidad) VALUES 
-(1, 1, 100),
-(2, 2, 200),
-(3, 3, 150),
-(4, 4, 50),
-(5, 5, 30);
-
-INSERT INTO Puesto (nombre) VALUES 
+INSERT INTO Cargo (nombre) VALUES 
 ('Encargado de animales'),
 ('Encargado de cultivos'),
 ('Veterinario'),
 ('Mecánico de maquinaria'),
 ('Administrador');
 
-INSERT INTO Empleado (nombre, idPuesto, fechaContratacion, salario) VALUES 
+INSERT INTO Empleado (nombre, idCargo, fechaContratacion, salario) VALUES 
 ('Juan Pérez', 1, '2023-01-15', 2000000),
 ('Ana Gómez', 2, '2023-02-20', 1800000),
 ('Carlos Martínez', 3, '2023-03-10', 2500000),
 ('Laura López', 4, '2023-04-05', 2200000),
 ('Pedro Ruiz', 5, '2023-05-15', 3000000);
 
-INSERT INTO Cliente (nombre, email, direccion) VALUES 
-('Claudia Rojas', 'claudia.rojas@example.com', 'Calle 1, Bogotá'),
-('Miguel Rodríguez', 'miguel.rodriguez@example.com', 'Carrera 45, Medellín'),
-('Sofía García', 'sofia.garcia@example.com', 'Avenida 7, Cali'),
-('Julio Fernández', 'julio.fernandez@example.com', 'Diagonal 30, Barranquilla'),
-('Luisa Morales', 'luisa.morales@example.com', 'Calle 12, Bucaramanga');
+INSERT INTO Cliente (nombre, telefono) VALUES 
+('Claudia Rojas', '1234567891'),
+('Miguel Rodríguez', '2345678912'),
+('Sofía García', '3456789012'),
+('Julio Fernández', '4567891230'),
+('Luisa Morales', '5678901234');
 
 INSERT INTO Venta (idCliente, fecha, total) VALUES 
 (1, '2024-10-01', 50000),
@@ -253,16 +250,54 @@ INSERT INTO Venta (idCliente, fecha, total) VALUES
 (4, '2024-10-04', 125000),
 (5, '2024-10-05', 60000);
 
-INSERT INTO ProductoXVenta (idProducto, idVenta, cantidad, precioUnitario) VALUES 
-(1, 1, 10, 5000),
-(2, 2, 5, 20000),
-(3, 3, 25, 3000),
-(4, 4, 50, 2000),
-(5, 5, 60, 1000);
+INSERT INTO ProductoXVenta (idVenta, idProducto, cantidad) VALUES 
+(1, 1, 10),
+(2, 2, 5),
+(3, 3, 25),
+(4, 4, 50),
+(5, 5, 60);
 
-INSERT INTO AlmacenXProducto (idAlmacen, idProducto, cantidad) VALUES 
-(1, 1, 500),
-(2, 2, 250),
-(3, 3, 150),
-(4, 4, 100),
-(5, 5, 200);
+INSERT INTO
+  horario (iddia, horainicio, horafin)
+VALUES
+  (1, '08:00:00', '12:00:00'),
+  (2, '09:00:00', '13:00:00'),
+  (3, '10:00:00', '14:00:00'),
+  (4, '11:00:00', '15:00:00'),
+  (5, '12:00:00', '16:00:00');
+
+INSERT INTO
+  empleadoxhorario (idempleado, idhorario)
+VALUES
+  (1, 1),
+  (2, 2),
+  (3, 3),
+  (4, 4),
+  (5, 5);
+
+INSERT INTO
+  empleadoxtarea (idempleado, idtarea)
+VALUES
+  (1, 1),
+  (2, 2),
+  (3, 3),
+  (4, 4),
+  (5, 5);
+
+INSERT INTO
+  mantenimiento (idmaquinaria, fecha, costo)
+VALUES
+  (1, '2024-10-01', 50000),
+  (2, '2024-10-02', 75000),
+  (3, '2024-10-03', 60000),
+  (4, '2024-10-04', 80000),
+  (5, '2024-10-05', 55000);
+
+INSERT INTO
+  tareaxcultivo (idtarea, idcultivo)
+VALUES
+  (1, 1),
+  (2, 2),
+  (3, 3),
+  (4, 4),
+  (5, 5);
