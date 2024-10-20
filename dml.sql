@@ -1,4 +1,3 @@
--- Inserción de días (solo una vez)
 INSERT INTO Dia (nombre) VALUES 
 ('Domingo'),
 ('Lunes'),
@@ -8,7 +7,6 @@ INSERT INTO Dia (nombre) VALUES
 ('Viernes'),
 ('Sábado');
 
--- Inserciones de ejemplo
 INSERT INTO Zona (nombre, area) VALUES 
 ('Zona Norte', 10.00),
 ('Zona Sur', 15.50),
@@ -205,3 +203,66 @@ INSERT INTO TipoMaquinaria (nombre) VALUES
 ('Cultivadora'),
 ('Remolque'),
 ('Desmalezadora');
+
+INSERT INTO Maquinaria (nombre, idTipoMaquinaria, fechaAdquisicion, estado) VALUES 
+('Tractor John Deere', 1, '2024-01-01', 'Operativa'),
+('Cosechadora Case IH', 2, '2024-02-15', 'Operativa'),
+('Cultivadora Massey Ferguson', 3, '2024-03-10', 'En reparación'),
+('Remolque Kubota', 4, '2024-04-20', 'Operativa'),
+('Desmalezadora Stihl', 5, '2024-05-05', 'Operativa');
+
+INSERT INTO MaquinariaXRecinto (idMaquinaria, idRecinto) VALUES 
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
+
+INSERT INTO MaquinariaXInsumo (idMaquinaria, idInsumo, cantidad) VALUES 
+(1, 1, 100),
+(2, 2, 200),
+(3, 3, 150),
+(4, 4, 50),
+(5, 5, 30);
+
+INSERT INTO Puesto (nombre) VALUES 
+('Encargado de animales'),
+('Encargado de cultivos'),
+('Veterinario'),
+('Mecánico de maquinaria'),
+('Administrador');
+
+INSERT INTO Empleado (nombre, idPuesto, fechaContratacion, salario) VALUES 
+('Juan Pérez', 1, '2023-01-15', 2000000),
+('Ana Gómez', 2, '2023-02-20', 1800000),
+('Carlos Martínez', 3, '2023-03-10', 2500000),
+('Laura López', 4, '2023-04-05', 2200000),
+('Pedro Ruiz', 5, '2023-05-15', 3000000);
+
+INSERT INTO Cliente (nombre, email, direccion) VALUES 
+('Claudia Rojas', 'claudia.rojas@example.com', 'Calle 1, Bogotá'),
+('Miguel Rodríguez', 'miguel.rodriguez@example.com', 'Carrera 45, Medellín'),
+('Sofía García', 'sofia.garcia@example.com', 'Avenida 7, Cali'),
+('Julio Fernández', 'julio.fernandez@example.com', 'Diagonal 30, Barranquilla'),
+('Luisa Morales', 'luisa.morales@example.com', 'Calle 12, Bucaramanga');
+
+INSERT INTO Venta (idCliente, fecha, total) VALUES 
+(1, '2024-10-01', 50000),
+(2, '2024-10-02', 100000),
+(3, '2024-10-03', 75000),
+(4, '2024-10-04', 125000),
+(5, '2024-10-05', 60000);
+
+INSERT INTO ProductoXVenta (idProducto, idVenta, cantidad, precioUnitario) VALUES 
+(1, 1, 10, 5000),
+(2, 2, 5, 20000),
+(3, 3, 25, 3000),
+(4, 4, 50, 2000),
+(5, 5, 60, 1000);
+
+INSERT INTO AlmacenXProducto (idAlmacen, idProducto, cantidad) VALUES 
+(1, 1, 500),
+(2, 2, 250),
+(3, 3, 150),
+(4, 4, 100),
+(5, 5, 200);
