@@ -139,7 +139,7 @@ INSERT INTO Tarea (idTipoTareas, fechaInicio, fechaFin, descripcion, estado) VAL
 (2, '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
 (4, '2024-10-02 08:00:00', '2024-10-02 10:00:00', 'Revisar el estado de los cultivos de maíz', 'Pendiente'),
 (4, '2024-10-03 08:00:00', '2024-10-03 10:00:00', 'Revisar el estado de los cultivos de Trigo', 'Pendiente'),
-(5, '2025-02-10 08:00:00', '2025-02-10 13:00:00', 'Cosechar la cebada')
+(5, '2025-02-10 08:00:00', '2025-02-10 13:00:00', 'Cosechar la cebada');
 
 INSERT INTO TareaXRecinto (idTarea, idRecinto) VALUES
 (1, 1),
