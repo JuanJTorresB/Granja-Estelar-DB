@@ -124,23 +124,29 @@ INSERT INTO RecintoXProducto (idRecinto, idProducto, cantidad) VALUES
 (4, 4, 20),
 (5, 5, 40);
 
-INSERT INTO Tarea (nombre, fechaInicio, fechaFin, descripcion, estado) VALUES 
-('Alimentar animales', '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
-('Alimentar animales', '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
-('Alimentar animales', '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
-('Alimentar animales', '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
-('Recolectar Miel', '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
-('Revisar cultivos', '2024-10-02 08:00:00', '2024-10-02 10:00:00', 'Revisar el estado de los cultivos de maíz', 'Pendiente'),
-('Mantenimiento de herramientas', '2024-10-03 08:00:00', '2024-10-03 10:00:00', 'Revisar herramientas y reparar si es necesario', 'Pendiente'),
-('Control de plagas', '2024-10-04 08:00:00', '2024-10-04 10:00:00', 'Aplicar tratamiento para plagas', 'Pendiente'),
-('Cosecha de frutas', '2024-10-05 08:00:00', '2024-10-05 10:00:00', 'Cosechar las frutas maduras', 'Pendiente');
+INSERT INTO TipoTarea (nombre) VALUES 
+('Alimentar animales'),
+('Recolectar Produccion Animal'),
+('Control de plagas'),
+('Alimentar animales'),
+('Recolectar Produccion Agricola');
 
-INSERT INTO TareaXRecinto (idTarea, idRecinto) VALUES 
+INSERT INTO Tarea (idTipoTareas, fechaInicio, fechaFin, descripcion, estado) VALUES 
+(1, '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
+(1, '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
+(1, '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
+(1, '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
+(2, '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
+(4, '2024-10-02 08:00:00', '2024-10-02 10:00:00', 'Revisar el estado de los cultivos de maíz', 'Pendiente'),
+(4, '2024-10-03 08:00:00', '2024-10-03 10:00:00', 'Revisar el estado de los cultivos de Trigo', 'Pendiente'),
+(5, '2025-02-10 08:00:00', '2025-02-10 13:00:00', 'Cosechar la cebada')
+
+INSERT INTO TareaXRecinto (idTarea, idRecinto) VALUES
 (1, 1),
 (2, 2),
 (3, 3),
 (4, 4),
-(1, 1);
+(5, 5);
 
 INSERT INTO TipoAnimal (nombre) VALUES 
 ('Vaca'),
