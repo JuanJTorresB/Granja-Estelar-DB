@@ -18,7 +18,7 @@ BEGIN
     SELECT c.nombre AS "Cargo", e.nombre AS "Empleado", h.horaInicio AS "Hora entrada", h.horaFin AS "Hora salida"
     FROM Cargo c
     JOIN Empleado e ON c.idCargo=e.idCargo
-    JOIN EmpleadoxHorario eh ON e.idEmpleado=eh.idEmpleado
+    JOIN EmpleadoXHorario eh ON e.idEmpleado=eh.idEmpleado
     JOIN Horario h ON h.idHorario=eh.idHorario
     JOIN Dia d ON d.idDia=H.idDia
     WHERE d.idDia=DAYOFWEEK(NOW()) AND h.horaInicio<=TIME(NOW()) AND h.horaFin>TIME(NOW()) AND e.estado="Activo";
@@ -34,7 +34,7 @@ CREATE PROCEDURE tareasRelacionadasEmpleado(IN _idEmpleado INT, IN dia DATE)
 BEGIN
     SELECT t.descripcion AS "Tarea", TIME(t.fechaInicio) AS "Hora inicio", TIME(t.fechaFin) AS "Hora fin", t.descripcion AS "Descripcion" 
     FROM Tarea t
-    JOIN EmpleadoxTarea et ON t.idTarea=et.idTarea
+    JOIN EmpleadoXTarea et ON t.idTarea=et.idTarea
     WHERE et.idEmpleado=_idEmpleado AND DATE(t.fechaInicio)=dia;
 END //
 DELIMITER ;
@@ -72,7 +72,7 @@ CREATE PROCEDURE obtenerProveedoresInsumo(IN _idInsumo INT)
 BEGIN
     SELECT p.nombre AS "Proveedor",  ip.costo AS "Costo"
     FROM Proveedor p
-    JOIN InsumoxProveedor ip ON ip.idProveedor=p.idProveedor
+    JOIN InsumoXProveedor ip ON ip.idProveedor=p.idProveedor
     WHERE ip.idInsumo=_idInsumo;
 END //
 DELIMITER ;
@@ -86,7 +86,7 @@ BEGIN
     SELECT t.nombre AS "Tipo herramienta", COUNT(ah.idHerramienta) AS "Cantidad"
     FROM TipoHerramienta t
     JOIN Herramienta h ON t.idTipoHerramienta=h.idTipoHerramienta
-    JOIN AlmacenxHerramienta ah ON ah.idHerramienta=h.idHerramienta
+    JOIN AlmacenXHerramienta ah ON ah.idHerramienta=h.idHerramienta
     WHERE ah.idAlmacen=_idAlmacen
     GROUP BY t.nombre;
 END //
@@ -112,9 +112,9 @@ BEGIN
     SELECT tc.nombre AS "Tipo cultivo", c.idCultivo AS "Cultivo", COUNT(et.idEmpleado) AS "Cantidad"
     FROM TipoCultivo tc
     JOIN Cultivo c ON tc.idTipoCultivo=c.idTipoCultivo
-    JOIN TareaxCultivo txc ON c.idCultivo=txc.idCultivo
+    JOIN TareaXCultivo txc ON c.idCultivo=txc.idCultivo
     JOIN Tarea t ON txc.idTarea=t.idTarea
-    JOIN EmpleadoxTarea et ON et.idTarea=t.idTarea
+    JOIN EmpleadoXTarea et ON et.idTarea=t.idTarea
     GROUP BY tc.nombre, c.idCultivo;
 END //
 DELIMITER ;
@@ -152,7 +152,7 @@ CREATE PROCEDURE cantidadProductoRecinto(IN _idRecinto INT)
 BEGIN
     SELECT p.nombre AS "Producto", SUM(rp.cantidad) AS "Cantidad"
     FROM Producto p
-    JOIN RecintoxProducto rp ON rp.idProducto=p.idProducto
+    JOIN RecintoXProducto rp ON rp.idProducto=p.idProducto
     WHERE rp.idRecinto=_idRecinto
     GROUP BY p.nombre;
 END //
@@ -167,7 +167,7 @@ BEGIN
     SELECT ti.nombre AS "Tipo de insumo", i.nombre AS "Insumo", i.stock AS "Stock" 
     FROM TipoInsumo ti
     JOIN Insumo i ON i.idTipoInsumo=ti.idTipoInsumo
-    JOIN CultivoxInsumo ci ON ci.idInsumo=i.idInsumo
+    JOIN CultivoXInsumo ci ON ci.idInsumo=i.idInsumo
     JOIN Cultivo c ON c.idCultivo=ci.idCultivo
     JOIN TipoCultivo tc ON tc.idTipoCultivo=c.idTipoCultivo
     WHERE tc.idTipoCultivo=_idTipoCultivo;
@@ -182,7 +182,7 @@ CREATE PROCEDURE proveedoresInsumo(IN _idInsumo INT)
 BEGIN
     SELECT p.nombre AS "Proveedor", ip.costo AS "Costo"
     FROM Proveedor p
-    JOIN InsumoxProveedor ip ON ip.idProveedor=p.idProveedor
+    JOIN InsumoXProveedor ip ON ip.idProveedor=p.idProveedor
     WHERE ip.idInsumo=_idInsumo;
 END //
 DELIMITER ;
@@ -196,7 +196,7 @@ BEGIN
     SELECT t.nombre AS "Tipo maquinaria", COUNT(am.idMaquinaria) AS "Cantidad"
     FROM TipoMaquinaria t
     JOIN Maquinaria m ON t.idTipoMaquinaria=m.idTipoMaquinaria
-    JOIN AlmacenxMaquinaria am ON am.idMaquinaria=m.idMaquinaria
+    JOIN AlmacenXMaquinaria am ON am.idMaquinaria=m.idMaquinaria
     WHERE am.idAlmacen=_idAlmacen
     GROUP BY t.nombre;
 END //
@@ -209,9 +209,9 @@ DELIMITER //
 CREATE PROCEDURE trabajadoresRecinto()
 BEGIN
     SELECT tr.nombre AS "Tipo de recinto", r.nombre AS "Recinto", COUNT(et.idEmpleado) AS "Cantidad"
-    FROM EmpleadoxTarea et
+    FROM EmpleadoXTarea et
     JOIN Tarea t ON t.idTarea=et.idTarea
-    JOIN TareaxRecinto txr ON txr.idTarea=t.idTarea
+    JOIN TareaXRecinto txr ON txr.idTarea=t.idTarea
     JOIN Recinto r ON r.idRecinto=txr.idRecinto
     JOIN TipoRecinto tr ON tr.idTipoRecinto=r.idTipoRecinto
     GROUP BY tr.nombre, r.nombre;

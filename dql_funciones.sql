@@ -36,7 +36,7 @@ DETERMINISTIC
 BEGIN
     DECLARE cantidadProducto INT;
     SELECT SUM(cp.cantidad) INTO cantidadProducto
-    FROM CultivoxProducto cp
+    FROM CultivoXProducto cp
     JOIN Cultivo c ON c.idCultivo=cp.idCultivo
     WHERE cp.idProducto=_idProducto AND c.fechaCosecha BETWEEN fechaInicio AND fechaFin;
     RETURN cantidadProducto;
@@ -55,7 +55,7 @@ BEGIN
     DECLARE ventaProducto DECIMAL(10,2);
 
     SELECT SUM(pv.cantidad) INTO cantidadProducto
-    FROM ProductoxVenta pv
+    FROM ProductoXVenta pv
     JOIN Venta v ON pv.idVenta=v.idVenta
     WHERE DATE(v.fecha) BETWEEN fechaInicial AND fechaFinal AND pv.idProducto=_idProducto;
 
@@ -82,7 +82,7 @@ BEGIN
 		RETURN 0;
 	END IF;
 
-    SELECT (cantidad/areaCultivo) INTO rendimiento FROM CultivoxProducto WHERE idCultivo=_idCultivo LIMIT 1;
+    SELECT (cantidad/areaCultivo) INTO rendimiento FROM CultivoXProducto WHERE idCultivo=_idCultivo LIMIT 1;
 
     RETURN rendimiento;
 END //
@@ -138,10 +138,10 @@ BEGIN
     DECLARE id INT;
 
     SELECT idProveedor INTO id
-    FROM InsumoxProveedor
+    FROM InsumoXProveedor
     WHERE idInsumo=_idInsumo AND costo=(
         SELECT MIN(costo)
-        FROM InsumoxProveedor
+        FROM InsumoXProveedor
         WHERE idInsumo=_idInsumo
     ) 
     LIMIT 1;
@@ -195,7 +195,7 @@ BEGIN
     SET cantidad=0;
 
     SELECT COUNT(ip.idProveedor) INTO cantidad
-    FROM InsumoxProveedor ip
+    FROM InsumoXProveedor ip
     JOIN Proveedor p ON p.idProveedor=ip.idProveedor
     WHERE ip.idInsumo=_idInsumo AND p.activo="Activo";
 
@@ -214,7 +214,7 @@ BEGIN
     DECLARE numeroCompras INT;
     
     SELECT COUNT(op.idProveedor) INTO numeroCompras 
-    FROM OrdenCompraxProveedor op 
+    FROM OrdenCompraXProveedor op 
     JOIN OrdenCompra o ON o.idOrdenCompra=op.idOrdenCompra
     WHERE fechaInicial<=DATE(o.fecha) AND fechaFinal>=DATE(o.fecha) AND op.idProveedor=_idProveedor;
     
@@ -301,7 +301,7 @@ BEGIN
     DECLARE cantidadInsumo INT;
 
     SELECT SUM(io.cantidad) INTO cantidadInsumo
-    FROM InsumoxOrdenCompra io
+    FROM InsumoXOrdenCompra io
     JOIN OrdenCompra oc ON oc.idOrdenCompra=io.idOrdenCompra
     WHERE io.idInsumo=_idInsumo AND oc.fecha BETWEEN fechaInicial AND fechaFinal;
 
@@ -339,7 +339,7 @@ BEGIN
 
     SELECT SUM(v.total) INTO totalVentas
     FROM Venta v
-    JOIN ProductoxVenta pv ON v.idVenta=pv.idVenta
+    JOIN ProductoXVenta pv ON v.idVenta=pv.idVenta
     JOIN Producto p ON p.idProducto=pv.idProducto
     JOIN Categoria c ON c.idCategoria=p.idCategoria
     WHERE C.idCategoria=_idCategoria;

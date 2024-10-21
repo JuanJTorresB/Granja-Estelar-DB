@@ -27,22 +27,22 @@ END //
 DELIMITER ;
 
 -- 3. Trigger para actualizar el stock de un insumo al realizar una orden de compra
-DROP TRIGGER IF EXISTS afterInsertInsumoxOrdenCompraStock;
+DROP TRIGGER IF EXISTS afterInsertInsumoXOrdenCompraStock;
 
 DELIMITER //
-CREATE TRIGGER afterInsertInsumoxOrdenCompraStock
-AFTER INSERT ON InsumoxOrdenCompra FOR EACH ROW
+CREATE TRIGGER afterInsertInsumoXOrdenCompraStock
+AFTER INSERT ON InsumoXOrdenCompra FOR EACH ROW
 BEGIN
     UPDATE Insumo SET stock=stock+NEW.cantidad WHERE idInsumo=NEW.idInsumo;
 END //
 DELIMITER ;
 
--- 4. Trigger para actualizar el total de una venta al hacer un registro en ProductoxVenta
-DROP TRIGGER IF EXISTS afterInsertProductoxVenta;
+-- 4. Trigger para actualizar el total de una venta al hacer un registro en ProductoXVenta
+DROP TRIGGER IF EXISTS afterInsertProductoXVenta;
 
 DELIMITER //
-CREATE TRIGGER afterInsertProductoxVenta
-AFTER INSERT ON ProductoxVenta FOR EACH ROW
+CREATE TRIGGER afterInsertProductoXVenta
+AFTER INSERT ON ProductoXVenta FOR EACH ROW
 BEGIN
     DECLARE subtotal DECIMAL(10,2);
 
@@ -66,12 +66,12 @@ BEGIN
 END //
 DELIMITER ;
 
--- 6. Trigger para actualizar el stock de producto cuando se registra en CultivoxProducto
-DROP TRIGGER IF EXISTS afterInsertCultivoxProducto;
+-- 6. Trigger para actualizar el stock de producto cuando se registra en CultivoXProducto
+DROP TRIGGER IF EXISTS afterInsertCultivoXProducto;
 
 DELIMITER //
-CREATE TRIGGER afterInsertCultivoxProducto
-AFTER INSERT ON CultivoxProducto FOR EACH ROW
+CREATE TRIGGER afterInsertCultivoXProducto
+AFTER INSERT ON CultivoXProducto FOR EACH ROW
 BEGIN 
     UPDATE Producto SET stock=stock+NEW.cantidad WHERE idProducto=NEW.idProducto;
 END //
@@ -121,22 +121,22 @@ END //
 DELIMITER ;
 
 -- 10. Trigger para actualizar el stock de un producto al realizar una venta
-DROP TRIGGER IF EXISTS afterInsertProductoxVentaStock;
+DROP TRIGGER IF EXISTS afterInsertProductoXVentaStock;
 
 DELIMITER //
-CREATE TRIGGER afterInsertProductoxVentaStock
-AFTER INSERT ON ProductoxVenta FOR EACH ROW
+CREATE TRIGGER afterInsertProductoXVentaStock
+AFTER INSERT ON ProductoXVenta FOR EACH ROW
 BEGIN
     UPDATE Producto SET stock=stock-NEW.cantidad WHERE idProducto=NEW.idProducto;
 END //
 DELIMITER ;
 
 -- 11. Trigger para registrar la actualizacion del costo de un insumo
-DROP TRIGGER IF EXISTS afterUpdateInsumoxProveedorCosto;
+DROP TRIGGER IF EXISTS afterUpdateInsumoXProveedorCosto;
 
 DELIMITER //
-CREATE TRIGGER afterUpdateInsumoxProveedorCosto
-AFTER UPDATE ON InsumoxProveedor FOR EACH ROW
+CREATE TRIGGER afterUpdateInsumoXProveedorCosto
+AFTER UPDATE ON InsumoXProveedor FOR EACH ROW
 BEGIN
     IF NEW.costo<>OLD.costo THEN
         INSERT INTO Log(idEntidad, mensaje, fecha)
@@ -146,12 +146,12 @@ BEGIN
 END //
 DELIMITER ;
 
--- 12. Trigger para actualizar el stock de un producto cuando se registre en RecintoxProducto
-DROP TRIGGER IF EXISTS afterInsertRecintoxProducto;
+-- 12. Trigger para actualizar el stock de un producto cuando se registre en RecintoXProducto
+DROP TRIGGER IF EXISTS afterInsertRecintoXProducto;
 
 DELIMITER //
-CREATE TRIGGER afterInsertRecintoxProducto
-AFTER INSERT ON RecintoxProducto FOR EACH ROW
+CREATE TRIGGER afterInsertRecintoXProducto
+AFTER INSERT ON RecintoXProducto FOR EACH ROW
 BEGIN 
     UPDATE Producto SET stock=stock+NEW.cantidad WHERE idProducto=NEW.idProducto;
 END //
