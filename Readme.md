@@ -74,7 +74,7 @@ BEGIN
 END //
 DELIMITER ;
 ```
-####3. Procedimiento para obtener las tareas relacionadas a un empleado en un dia especifico
+#### 3. Procedimiento para obtener las tareas relacionadas a un empleado en un dia especifico
 ```sql
 DELIMITER //
 CREATE PROCEDURE tareasRelacionadasEmpleado(IN _idEmpleado INT, IN dia DATE)
@@ -821,7 +821,7 @@ END //
 DELIMITER ;
 
 ```
--- 11. Trigger para actualizar el total de una orden al hacer un registro en InsumoxOrdenCompra
+#### 11. Trigger para actualizar el total de una orden al hacer un registro en InsumoxOrdenCompra
 ```sql
 DELIMITER //
 CREATE TRIGGER afterInsertInsumoxOrdenCompraTotal
