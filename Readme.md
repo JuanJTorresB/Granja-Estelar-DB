@@ -1329,7 +1329,7 @@ GRANT SELECT ON GranjaEstelar.Maquinaria TO 'Contador'@'localhost';
 GRANT SELECT ON GranjaEstelar.TipoMaquinaria TO 'Contador'@'localhost';
 ```
 
-### capataz
+### Capataz
 
 Tiene la capacidad de ver la informacion que esta relacionada en general a las tareas de la granja y puede asignar tareas a los empleados
 
@@ -1379,7 +1379,7 @@ GRANT SELECT ON GranjaEstelar.Zona TO 'Capataz'@'localhost';
 
 > Creando Nuevas Entidades y Relaciones generando una aun mayor robustes al sistema
 
-## Autor 🐦‍🔥
+## Autores 🐦‍🔥
 
 ### Juan José Torres Becerra
 
