@@ -135,6 +135,15 @@
         FOREIGN KEY (idProducto) REFERENCES Producto(idProducto)
     );
 
+    CREATE TABLE CultivoXProducto (
+        idCultivoXProducto INT PRIMARY KEY AUTO_INCREMENT,
+        idCultivo INT NOT NULL,
+        idProducto INT NOT NULL,
+        cantidad INT NOT NULL,
+        FOREIGN KEY (idCultivo) REFERENCES Cultivo(idCultivo),
+        FOREIGN KEY (idProducto) REFERENCES Producto(idProducto)
+    );
+
         CREATE TABLE TipoTarea (
         idTipoTarea INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(255) NOT NULL NOT NULL
