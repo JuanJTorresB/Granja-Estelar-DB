@@ -15,9 +15,9 @@
 7. [Funciones](#funciones-)
 8. [Triggers](#triggers-)
 9. [Eventos](#eventos-)
-10. [Roles de Usuario y Permisos](#roles-de-usuario-y-permisos-)
-11. [Como Aportar](#autor-)
-12. [Contacto](#autor-)
+10. [Roles de Usuario y Permisos](#roles-de-usuario-y-permisos-%EF%B8%8F)
+11. [Como Aportar](#como-aportar-)
+12. [Autores](#autores-)
 
 ## Información General 📒
 Granja Estelar Database es una base de datos creada en MySQL que busca llevar un registro y facilitar el acceso a informacion sobre la produccion agricola de una granja
