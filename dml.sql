@@ -17,14 +17,17 @@ INSERT INTO Zona (nombre, area) VALUES
 INSERT INTO TipoRecinto (nombre) VALUES 
 ('Establo'),
 ('Gallinero'),
-('Apiario');
+('Apiario'),
+('Porqueriza');
 
 INSERT INTO Recinto (idTipoRecinto, idZona, nombre) VALUES 
 (1, 1, 'Establo 1'),
 (1, 2, 'Establo 2'),
 (2, 3, 'Gallinero 1'),
 (2, 4, 'Gallinero 2'),
-(3, 5, 'Apiario 1');
+(3, 5, 'Apiario 1'),
+(4, 1, 'Porqueriza 1'),
+(4, 2, 'Porqueriza 2');
 
 INSERT INTO TipoInsumo (nombre) VALUES 
 ('Alimento para animales'),
@@ -75,7 +78,7 @@ INSERT INTO OrdenCompraXProveedor (idOrdenCompra, idProveedor) VALUES
 (4, 4),
 (5, 5);
 
-INSERT INTO TipoCultivo (nombre, inicioTemporada, fnTemporada) VALUES 
+INSERT INTO TipoCultivo (nombre, inicioTemporada, finTemporada) VALUES 
 ('Trigo', '2024-10-01', '2024-12-15'),
 ('Maíz', '2024-10-10', '2025-01-20'),
 ('Soya', '2024-10-15', '2025-01-30'),
@@ -112,23 +115,23 @@ INSERT INTO Categoria (nombre) VALUES
 
 INSERT INTO Producto (idCategoria, nombre, stock, precio) VALUES 
 (1, 'Leche', 1000, 5000),
-(2, '', 500, 20000),
-(3, '', 300, 3000),
-(4, '', 200, 2000),
+(2, 'Huevos', 500, 20000),
+(3, 'Maíz', 300, 3000),
+(4, 'Arroz', 200, 2000),
 (5, 'Miel', 400, 1000);
 
 INSERT INTO RecintoXProducto (idRecinto, idProducto, cantidad) VALUES 
 (1, 1, 100),
-(2, 2, 50),
-(3, 3, 30),
-(4, 4, 20),
+(2, 1, 50),
+(3, 2, 30),
+(4, 2, 20),
 (5, 5, 40);
 
 INSERT INTO TipoTarea (nombre) VALUES 
 ('Alimentar animales'),
 ('Recolectar Produccion Animal'),
+('Regar Cultivos'),
 ('Control de plagas'),
-('Alimentar animales'),
 ('Recolectar Produccion Agricola');
 
 INSERT INTO Tarea (idTipoTarea, fechaInicio, fechaFin, descripcion, estado) VALUES 
@@ -136,7 +139,7 @@ INSERT INTO Tarea (idTipoTarea, fechaInicio, fechaFin, descripcion, estado) VALU
 (1, '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
 (1, '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
 (1, '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
-(2, '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
+(2, '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Recolectar Produccion de los animales en el establo', 'Pendiente'),
 (4, '2024-10-02 08:00:00', '2024-10-02 10:00:00', 'Revisar el estado de los cultivos de maíz', 'Pendiente'),
 (4, '2024-10-03 08:00:00', '2024-10-03 10:00:00', 'Revisar el estado de los cultivos de Trigo', 'Pendiente'),
 (5, '2025-02-10 08:00:00', '2025-02-10 13:00:00', 'Cosechar la cebada', 'Pendiente');
@@ -273,35 +276,35 @@ INSERT INTO ProductoXVenta (idVenta, idProducto, cantidad) VALUES
 (4, 4, 50),
 (5, 5, 60);
 
-INSERT INTO horario (iddia, horainicio, horafin) VALUES
+INSERT INTO Horario (idDia, horainicio, horafin) VALUES
 (1, '08:00:00', '12:00:00'),
 (2, '09:00:00', '13:00:00'),
 (3, '10:00:00', '14:00:00'),
 (4, '11:00:00', '15:00:00'),
 (5, '12:00:00', '16:00:00');
 
-INSERT INTO empleadoxhorario (idempleado, idhorario) VALUES
+INSERT INTO EmpleadoXHorario (idEmpleado, idhorario) VALUES
 (1, 1),
 (2, 2),
 (3, 3),
 (4, 4),
 (5, 5);
 
-INSERT INTO empleadoxtarea (idempleado, idtarea) VALUES
+INSERT INTO EmpleadoXTarea (idEmpleado, idtarea) VALUES
 (1, 1),
 (2, 2),
 (3, 3),
 (4, 4),
 (5, 5);
 
-INSERT INTO mantenimiento (idmaquinaria, fecha, costo) VALUES
+INSERT INTO Mantenimiento (idMaquinaria, fecha, costo) VALUES
 (1, '2024-10-01', 50000),
 (2, '2024-10-02', 75000),
 (3, '2024-10-03', 60000),
 (4, '2024-10-04', 80000),
 (5, '2024-10-05', 55000);
 
-INSERT INTO tareaxcultivo (idtarea, idcultivo) VALUES
+INSERT INTO TareaXCultivo (idTarea, idCultivo) VALUES
 (1, 1),
 (2, 2),
 (3, 3),

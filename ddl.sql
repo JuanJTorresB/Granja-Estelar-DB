@@ -331,16 +331,16 @@
         FOREIGN KEY (idEntidad) REFERENCES Entidad(idEntidad)
     );
 
-    CREATE TABLE EmpleadoxTarea (
-        idEmpleadoxTarea INT PRIMARY KEY AUTO_INCREMENT,
+    CREATE TABLE EmpleadoXTarea (
+        idEmpleadoXTarea INT PRIMARY KEY AUTO_INCREMENT,
         idEmpleado INT NOT NULL,
         idTarea INT NOT NULL,
         FOREIGN KEY (idEmpleado) REFERENCES Empleado(idEmpleado),
         FOREIGN KEY (idTarea) REFERENCES Tarea(idTarea)
     );
 
-    CREATE TABLE EmpleadoxHorario (
-        idEmpleadoxHorario INT PRIMARY KEY AUTO_INCREMENT,
+    CREATE TABLE EmpleadoXHorario (
+        idEmpleadoXHorario INT PRIMARY KEY AUTO_INCREMENT,
         idEmpleado INT NOT NULL,
         idHorario INT NOT NULL,
         FOREIGN KEY (idEmpleado) REFERENCES Empleado(idEmpleado),
