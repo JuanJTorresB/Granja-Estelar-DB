@@ -233,13 +233,16 @@ INSERT INTO Cargo (nombre) VALUES
 ('Encargado de cultivos'),
 ('Veterinario'),
 ('Mecánico de maquinaria'),
-('Administrador');
+('Administrador'),
+('Capataz'),
+('Contador');
 
 INSERT INTO Empleado (nombre, idCargo, fechaContratacion, salario) VALUES 
 ('Juan Pérez', 1, '2023-01-15', 2000000),
 ('Ana Gómez', 2, '2023-02-20', 1800000),
 ('Carlos Martínez', 3, '2023-03-10', 2500000),
 ('Laura López', 4, '2023-04-05', 2200000),
+('Nate Gentile', 6, '2023-04-05', 2200000),
 ('Pedro Ruiz', 5, '2023-05-15', 3000000);
 
 INSERT INTO Cliente (nombre, telefono) VALUES 
