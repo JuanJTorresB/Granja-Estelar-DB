@@ -1176,11 +1176,208 @@ DO
 
 ## Roles de Usuario y Permisos 👷‍♂️
 
+### Administrador
+
+Tiene control total sobre la base de datos, incluso puede otorgar permisos a otros usuarios
+
+```sql
+DROP USER IF EXISTS 'administrador'@'localhost';
+CREATE USER 'administrador'@'localhost' IDENTIFIED BY 'admin123';
+GRANT ALL PRIVILEGES ON granjaestelar.* TO 'administrador'@'localhost' WITH GRANT OPTION;
+```
+
+### Encargado de Animales
+
+Tiene la capacidad de ver la informacion que esta relacionada con los animales y puede reportar la produccion de productos animales
+
+```sql
+DROP USER IF EXISTS 'EncargadoDeAnimales'@'localhost';
+CREATE USER 'EncargadoDeAnimales'@'localhost' IDENTIFIED BY 'animales123';
+-- Nos asegurarnos de revocar todos los permisos y asi tener total control de que permisos tiene el usuario (Si da error en la consola es perfecto pues significa que nuestro usuario no tiene permisos)
+REVOKE ALL PRIVILEGES ON granjaestelar.* FROM 'EncargadoDeAnimales'@'localhost';
+-- Revocamos todos los permisos
+-- Ahora insertamos lo verdaderos permisos
+-- Permisos para animales y recintos
+GRANT SELECT ON GranjaEstelar.ConsultaVeterinaria TO 'EncargadoDeAnimales'@'localhost';
+GRANT SELECT ON GranjaEstelar.TipoAnimal TO 'EncargadoDeAnimales'@'localhost';
+GRANT SELECT ON GranjaEstelar.Animal TO 'EncargadoDeAnimales'@'localhost';
+GRANT SELECT ON GranjaEstelar.Recinto TO 'EncargadoDeAnimales'@'localhost';
+GRANT SELECT ON GranjaEstelar.TipoRecinto TO 'EncargadoDeAnimales'@'localhost';
+
+-- Permisos para insumos
+GRANT SELECT ON GranjaEstelar.RecintoXInsumo TO 'EncargadoDeAnimales'@'localhost';
+GRANT SELECT ON GranjaEstelar.TipoInsumo TO 'EncargadoDeAnimales'@'localhost';
+GRANT SELECT ON GranjaEstelar.Insumo TO 'EncargadoDeAnimales'@'localhost';
+
+-- Permisos para maquinaria y herramientas
+GRANT SELECT ON GranjaEstelar.Almacen TO 'EncargadoDeAnimales'@'localhost';
+
+GRANT SELECT ON GranjaEstelar.TipoMaquinaria TO 'EncargadoDeAnimales'@'localhost';
+GRANT SELECT ON GranjaEstelar.Maquinaria TO 'EncargadoDeAnimales'@'localhost';
+GRANT SELECT ON GranjaEstelar.Mantenimiento TO 'EncargadoDeAnimales'@'localhost';
+GRANT SELECT ON GranjaEstelar.AlmacenXMaquinaria TO 'EncargadoDeAnimales'@'localhost';
+
+GRANT SELECT ON GranjaEstelar.TipoHerramienta TO 'EncargadoDeAnimales'@'localhost';
+GRANT SELECT ON GranjaEstelar.Herramienta TO 'EncargadoDeAnimales'@'localhost';
+GRANT SELECT ON GranjaEstelar.AlmacenXHerramienta TO 'EncargadoDeAnimales'@'localhost';
+
+-- Permisos para zonas
+GRANT SELECT ON GranjaEstelar.Zona TO 'EncargadoDeAnimales'@'localhost';
+
+-- Permisos para tareas
+GRANT SELECT ON GranjaEstelar.Tarea TO 'EncargadoDeAnimales'@'localhost';
+GRANT SELECT ON GranjaEstelar.TipoTarea TO 'EncargadoDeAnimales'@'localhost';
+GRANT SELECT ON GranjaEstelar.TareaXRecinto TO 'EncargadoDeAnimales'@'localhost';
+
+-- Permisos para Reportar produccion
+GRANT SELECT, INSERT, UPDATE ON GranjaEstelar.RecintoXProducto TO 'EncargadoDeAnimales'@'localhost';
+```
+
+### Encargado de Cultivos
+
+Tiene la capacidad de ver la informacion que esta relacionada con los cultivos y puede reportar la produccion de productos agricolas
+
+```sql
+DROP USER IF EXISTS 'EncargadoDeCultivos'@'localhost';
+CREATE USER 'EncargadoDeCultivos'@'localhost' IDENTIFIED BY 'cultivos123';
+-- Nos asegurarnos de revocar todos los permisos y asi tener total control de que permisos tiene el usuario (Si da error en la consola es perfecto pues significa que nuestro usuario no tiene permisos)
+REVOKE ALL PRIVILEGES ON granjaestelar.* FROM 'EncargadoDeCultivos'@'localhost';
+-- Revocamos todos los permisos
+-- Ahora insertamos lo verdaderos permisos
+-- Permisos para cultivos
+GRANT SELECT ON GranjaEstelar.TipoCultivo TO 'EncargadoDeCultivos'@'localhost';
+GRANT SELECT ON GranjaEstelar.Cultivo TO 'EncargadoDeCultivos'@'localhost';
+
+-- Permisos para insumos
+GRANT SELECT ON GranjaEstelar.CultivoXInsumo TO 'EncargadoDeCultivos'@'localhost';
+GRANT SELECT ON GranjaEstelar.TipoInsumo TO 'EncargadoDeCultivos'@'localhost';
+GRANT SELECT ON GranjaEstelar.Insumo TO 'EncargadoDeCultivos'@'localhost';
+
+-- Permisos para maquinaria y herramientas
+GRANT SELECT ON GranjaEstelar.Almacen TO 'EncargadoDeCultivos'@'localhost';
+
+GRANT SELECT ON GranjaEstelar.TipoMaquinaria TO 'EncargadoDeCultivos'@'localhost';
+GRANT SELECT ON GranjaEstelar.Maquinaria TO 'EncargadoDeCultivos'@'localhost';
+GRANT SELECT ON GranjaEstelar.Mantenimiento TO 'EncargadoDeCultivos'@'localhost';
+GRANT SELECT ON GranjaEstelar.AlmacenXMaquinaria TO 'EncargadoDeCultivos'@'localhost';
+
+GRANT SELECT ON GranjaEstelar.TipoHerramienta TO 'EncargadoDeCultivos'@'localhost';
+GRANT SELECT ON GranjaEstelar.Herramienta TO 'EncargadoDeCultivos'@'localhost';
+GRANT SELECT ON GranjaEstelar.AlmacenXHerramienta TO 'EncargadoDeCultivos'@'localhost';
+
+-- Permisos para zonas
+GRANT SELECT ON GranjaEstelar.Zona TO 'EncargadoDeCultivos'@'localhost';
+
+-- Permisos para tareas
+GRANT SELECT ON GranjaEstelar.Tarea TO 'EncargadoDeCultivos'@'localhost';
+GRANT SELECT ON GranjaEstelar.TipoTarea TO 'EncargadoDeCultivos'@'localhost';
+GRANT SELECT ON GranjaEstelar.TareaXCultivo TO 'EncargadoDeCultivos'@'localhost';
+
+-- Permisos para Reportar produccion
+GRANT SELECT, INSERT, UPDATE ON GranjaEstelar.CultivoXProducto TO 'EncargadoDeCultivos'@'localhost';
+```
+
+### Contador
+
+Tiene la capacidad de ver la informacion que esta relacionada a los costos de produccion y a los beneficios de las ventas
+
+```sql
+DROP USER IF EXISTS 'Contador'@'localhost';
+CREATE USER 'Contador'@'localhost' IDENTIFIED BY 'contador123';
+-- Nos asegurarnos de revocar todos los permisos y asi tener total control de que permisos tiene el usuario (Si da error en la consola es perfecto pues significa que nuestro usuario no tiene permisos)
+REVOKE ALL PRIVILEGES ON granjaestelar.* FROM 'Contador'@'localhost';
+-- Revocamos todos los permisos
+-- Ahora insertamos lo verdaderos permisos
+
+-- Permisos para empleados
+
+GRANT SELECT ON GranjaEstelar.Empleado TO 'Contador'@'localhost';
+
+-- Permisos para insumos
+
+GRANT SELECT ON GranjaEstelar.Proveedor TO 'Contador'@'localhost';
+GRANT SELECT ON GranjaEstelar.InsumoXProveedor TO 'Contador'@'localhost';
+GRANT SELECT ON GranjaEstelar.OrdenCompra TO 'Contador'@'localhost';
+GRANT SELECT ON GranjaEstelar.InsumoXOrdenCompra TO 'Contador'@'localhost';
+GRANT SELECT ON GranjaEstelar.OrdenCompraXProveedor TO 'Contador'@'localhost';
+
+-- Permisos para productos
+
+GRANT SELECT ON GranjaEstelar.Producto TO 'Contador'@'localhost';
+GRANT SELECT ON GranjaEstelar.Categoria TO 'Contador'@'localhost';
+
+-- Permisos para ventas
+
+GRANT SELECT ON GranjaEstelar.Venta TO 'Contador'@'localhost';
+GRANT SELECT ON GranjaEstelar.Cliente TO 'Contador'@'localhost';
+GRANT SELECT ON GranjaEstelar.ProductoXVenta TO 'Contador'@'localhost';
+
+-- Permisos para ver la tabla historico
+
+GRANT SELECT ON GranjaEstelar.Historico TO 'Contador'@'localhost';
+
+-- Permisos para ver las Consultas Veterinarias
+
+GRANT SELECT ON GranjaEstelar.ConsultaVeterinaria TO 'Contador'@'localhost';
+GRANT SELECT ON GranjaEstelar.Animal TO 'Contador'@'localhost';
+GRANT SELECT ON GranjaEstelar.TipoAnimal TO 'Contador'@'localhost';
+
+-- Permisos para las tablas de mantenimiento
+
+GRANT SELECT ON GranjaEstelar.Mantenimiento TO 'Contador'@'localhost';
+GRANT SELECT ON GranjaEstelar.Maquinaria TO 'Contador'@'localhost';
+GRANT SELECT ON GranjaEstelar.TipoMaquinaria TO 'Contador'@'localhost';
+```
+
+### capataz
+
+Tiene la capacidad de ver la informacion que esta relacionada en general a las tareas de la granja y puede asignar tareas a los empleados
+
+```sql
+DROP USER IF EXISTS 'Capataz'@'localhost';
+CREATE USER 'Capataz'@'localhost' IDENTIFIED BY 'capataz123';
+-- Nos asegurarnos de revocar todos los permisos y asi tener total control de que permisos tiene el usuario (Si da error en la consola es perfecto pues significa que nuestro usuario no tiene permisos)
+REVOKE ALL PRIVILEGES ON granjaestelar.* FROM 'Capataz'@'localhost';
+-- Revocamos todos los permisos
+-- Ahora insertamos lo verdaderos permisos
+
+-- Permisos para empleados (Y asi saber a quien asignarle la tarea)
+
+GRANT SELECT ON GranjaEstelar.Empleado TO 'Capataz'@'localhost';
+
+-- Permisos para tareas
+
+GRANT ALL PRIVILEGES ON GranjaEstelar.Tarea TO 'Capataz'@'localhost';
+GRANT ALL PRIVILEGES ON GranjaEstelar.TipoTarea TO 'Capataz'@'localhost';
+GRANT ALL PRIVILEGES ON GranjaEstelar.TareaXRecinto TO 'Capataz'@'localhost';
+GRANT ALL PRIVILEGES ON GranjaEstelar.TareaXCultivo TO 'Capataz'@'localhost';
+GRANT ALL PRIVILEGES ON GranjaEstelar.EmpleadoxTarea TO 'Capataz'@'localhost';
+
+
+-- Permisos para maquinarias y herramientas
+GRANT SELECT ON GranjaEstelar.Almacen TO 'Capataz'@'localhost';
+
+GRANT SELECT ON GranjaEstelar.TipoMaquinaria TO 'Capataz'@'localhost';
+GRANT SELECT ON GranjaEstelar.Maquinaria TO 'Capataz'@'localhost';
+GRANT SELECT ON GranjaEstelar.Mantenimiento TO 'Capataz'@'localhost';
+GRANT SELECT ON GranjaEstelar.AlmacenXMaquinaria TO 'Capataz'@'localhost';
+
+GRANT SELECT ON GranjaEstelar.TipoHerramienta TO 'Capataz'@'localhost';
+GRANT SELECT ON GranjaEstelar.Herramienta TO 'Capataz'@'localhost';
+GRANT SELECT ON GranjaEstelar.AlmacenXHerramienta TO 'Capataz'@'localhost';
+
+-- Permisos para zonas
+GRANT SELECT ON GranjaEstelar.Zona TO 'Capataz'@'localhost';
+
+```
+
 ## Como Aportar 🛠
 
-> 
+> Generando Nuevas Inserciones
 
-> 
+> Ideando Nuevas Consultas, Eventos, Funciones, Triggers y Procedimientos
+
+> Creando Nuevas Entidades y Relaciones generando una aun mayor robustes al sistema
 
 ## Autor 🐦‍🔥
 
