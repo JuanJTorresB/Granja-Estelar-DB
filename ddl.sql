@@ -80,7 +80,7 @@
         idTipoCultivo INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(255) NOT NULL,
         inicioTemporada DATE NOT NULL,
-        fnTemporada DATE NOT NULL
+        finTemporada DATE NOT NULL
     );
 
     CREATE TABLE Cultivo (
