@@ -1,16 +1,19 @@
 -- 1. Funcion para calcular el total de ventas entre dos fechas
+DROP FUNCTION IF EXISTS totalVentasPeriodo;
+
 DELIMITER //
 CREATE FUNCTION totalVentasPeriodo(fechaInicial DATE, fechaFinal DATE)
 RETURNS DECIMAL(10,2)
 DETERMINISTIC
 BEGIN
     DECLARE totalVentas DECIMAL(10,2);
-    SELECT SUM(total) INTO totalVentas FROM Venta WHERE fechaInicial>=DATE(fecha) AND fechaFinal<=DATE(fecha);
+    SELECT SUM(total) INTO totalVentas FROM Venta WHERE fechaInicial<=DATE(fecha) AND fechaFinal>=DATE(fecha);
     RETURN totalVentas;
 END //
 DELIMITER ;
 
 -- 2. Funcion para calcular la cantidad de animales de un tipo en especifico
+DROP FUNCTION IF EXISTS totalAnimales;
 
 DELIMITER //
 CREATE FUNCTION totalAnimales(_idTipoAnimal INT)
@@ -24,6 +27,7 @@ END //
 DELIMITER ;
 
 -- 3. Funcion para obtener el total de producto obtenido en un periodo de tiempo
+DROP FUNCTION IF EXISTS totalProducto;
 
 DELIMITER //
 CREATE FUNCTION totalProducto(_idProducto INT, fechaInicio DATE, fechaFin DATE)
@@ -40,6 +44,7 @@ END//
 DELIMITER ;
 
 -- 4. Funcion para obtener el total de ventas de un producto en un periodo de tiempo
+DROP FUNCTION IF EXISTS totalVentasProducto;
 
 DELIMITER //
 CREATE FUNCTION totalVentasProducto(_idProducto INT, fechaInicial DATE, fechaFinal DATE)
@@ -61,6 +66,8 @@ END //
 DELIMITER ;
 
 -- 5. Funcion para calcular el rendimiento del cultivo
+DROP FUNCTION IF EXISTS rendimientoCultivo;
+
 DELIMITER //
 CREATE FUNCTION rendimientoCultivo(_idCultivo INT)
 RETURNS DECIMAL(10,2)
@@ -69,19 +76,24 @@ BEGIN
     DECLARE areaCultivo DECIMAL(10,2);
     DECLARE rendimiento DECIMAL(10,2);
 
-    SELECT area INTO areaCultivo FROM Cultivo WHERE idCultivo=_idCultivo;
+    SELECT area INTO areaCultivo FROM Cultivo WHERE idCultivo=_idCultivo LIMIT 1;
+    
+	IF areaCultivo = 0 THEN
+		RETURN 0;
+	END IF;
 
-    SELECT (cantidad/areaCultivo) INTO rendimiento FROM CultivoxProducto WHERE idCultivo=_idCultivo;
+    SELECT (cantidad/areaCultivo) INTO rendimiento FROM CultivoxProducto WHERE idCultivo=_idCultivo LIMIT 1;
 
     RETURN rendimiento;
-END ;
+END //
 DELIMITER ;
 
 
 -- 6. Funcion para calcular salario de empleado en un periodo de tiempo
+DROP FUNCTION IF EXISTS salarioEmpleado;
 
 DELIMITER //
-CREATE FUNCTION salarioEmpleado(IN _idEmpleado INT, IN fechaInicial DATE, IN fechaFinal DATE)
+CREATE FUNCTION salarioEmpleado(_idEmpleado INT, fechaInicial DATE, fechaFinal DATE)
 RETURNS DECIMAL(10,2)
 DETERMINISTIC
 BEGIN
@@ -95,25 +107,28 @@ BEGIN
 
     SELECT (salario/30) INTO salarioDia FROM Empleado WHERE idEmpleado=_idEmpleado;
 
-    SELECT salarioDia*DAYDIFF(FechaFinal,fechaInicial) INTO total;
+    SELECT salarioDia*DATEDIFF(FechaFinal,fechaInicial) INTO total;
 
     RETURN total;
 END //
 DELIMITER ;
 
--- 7. Funcion para calcular el total de compras realizadas por un cliente en un periodo
+-- 7. Funcion para calcular el valor total de compras realizadas por un cliente en un periodo
+DROP FUNCTION IF EXISTS totalComprasCliente;
+
 DELIMITER //
 CREATE FUNCTION totalComprasCliente(_idCliente INT,fechaInicial DATE, fechaFinal DATE)
 RETURNS DECIMAL(10,2)
 DETERMINISTIC
 BEGIN
     DECLARE totalVentas DECIMAL(10,2);
-    SELECT SUM(total) INTO totalVentas FROM Venta WHERE fechaInicial>=DATE(fecha) AND fechaFinal<=DATE(fecha) AND idCliente=_idCliiente;
+    SELECT SUM(total) INTO totalVentas FROM Venta WHERE fechaInicial<=DATE(fecha) AND fechaFinal>=DATE(fecha) AND idCliente=_idCliente;
     RETURN totalVentas;
 END //
 DELIMITER ;
 
 -- 8. Funcion para obtener el id del proveedor que tiene el menor precio de un insumo
+DROP FUNCTION IF EXISTS obtenerProveedorMenorPrecio;
 
 DELIMITER //
 CREATE FUNCTION obtenerProveedorMenorPrecio(_idInsumo INT)
@@ -136,6 +151,7 @@ END //
 DELIMITER ;
 
 -- 9. Funcion para calcular la cantidad de consultas veterinarias programadas para un animal
+DROP FUNCTION IF EXISTS consultasProgramadasAnimal;
 
 DELIMITER //
 CREATE FUNCTION consultasProgramadasAnimal(_idAnimal INT)
@@ -148,11 +164,12 @@ BEGIN
     FROM ConsultaVeterinaria
     WHERE idAnimal=_idAnimal AND fecha>NOW();
 
-    RETURNS cantidad;
+    RETURN cantidad;
 END //
-DELIMITER;
+DELIMITER ;
 
 -- 10. Funcion para obtener el dinero gastado en insumos en un periodo de tiempo
+DROP FUNCTION IF EXISTS costoInsumos;
 
 DELIMITER //
 CREATE FUNCTION costoInsumos(fechaInicial DATE, fechaFinal DATE)
@@ -167,6 +184,7 @@ END //
 DELIMITER ;
 
 -- 11. Funcion para calcular el numero de proveedores que hay para un insumo
+DROP FUNCTION IF EXISTS numeroProveedores;
 
 DELIMITER //
 CREATE FUNCTION numeroProveedores(_idInsumo INT)
@@ -186,18 +204,26 @@ END //
 DELIMITER ;
 
 -- 12. Funcion para calcular el numero de compras hechas a un proveedor en un periodo
+DROP FUNCTION IF EXISTS numeroComprasProveedor;
+
 DELIMITER //
 CREATE FUNCTION numeroComprasProveedor(_idProveedor INT,fechaInicial DATE, fechaFinal DATE)
 RETURNS INT
 DETERMINISTIC
 BEGIN
     DECLARE numeroCompras INT;
-    SELECT COUNT(idProvedor) INTO numeroCompras FROM OrdenCompraxProveedor WHERE fechaInicial<=DATE(fecha) AND fechaFinal>=DATE(fecha) AND idProveedor=_idProveedor;
+    
+    SELECT COUNT(op.idProveedor) INTO numeroCompras 
+    FROM OrdenCompraxProveedor op 
+    JOIN OrdenCompra o ON o.idOrdenCompra=op.idOrdenCompra
+    WHERE fechaInicial<=DATE(o.fecha) AND fechaFinal>=DATE(o.fecha) AND op.idProveedor=_idProveedor;
+    
     RETURN numeroCompras;
 END //
 DELIMITER ;
 
 -- 13. Función para obtener el último mantenimiento de una máquina
+DROP FUNCTION IF EXISTS ultimoMantenimientoMaquinaria;
 
 DELIMITER //
 CREATE FUNCTION ultimoMantenimientoMaquinaria(_idMaquinaria INT)
@@ -215,9 +241,10 @@ END //
 DELIMITER ;
 
 -- 14. Funcion para obtener el numero de veces que se ha utilizado un tipo de cultivo
+DROP FUNCTION IF EXISTS cantidadTipoCultivo;
 
 DELIMITER //
-CREATE FUNCTION cantidadTipoCultivo(_idTipoCultivo)
+CREATE FUNCTION cantidadTipoCultivo(_idTipoCultivo INT)
 RETURNS INT
 DETERMINISTIC
 BEGIN
@@ -232,18 +259,21 @@ END //
 DELIMITER ;
 
 -- 15. Funcion para calcular el numero de compras realizadas por un cliente en un periodo
+DROP FUNCTION IF EXISTS numeroComprasCliente;
+
 DELIMITER //
 CREATE FUNCTION numeroComprasCliente(_idCliente INT,fechaInicial DATE, fechaFinal DATE)
 RETURNS INT
 DETERMINISTIC
 BEGIN
     DECLARE numeroCompras INT;
-    SELECT COUNT(idCliente) INTO numeroCompras FROM Venta WHERE fechaInicial<=DATE(fecha) AND fechaFinal>=DATE(fecha) AND idCliente=_idCliiente;
+    SELECT COUNT(idCliente) INTO numeroCompras FROM Venta WHERE fechaInicial<=DATE(fecha) AND fechaFinal>=DATE(fecha) AND idCliente=_idCliente;
     RETURN numeroCompras;
 END //
 DELIMITER ;
 
 -- 16. Funcion para obtener el total de ventas que ha realizado un empleado en un periodo de tiempo
+DROP FUNCTION IF EXISTS totalVentasEmpleado;
 
 DELIMITER //
 CREATE FUNCTION  totalVentasEmpleado(_idEmpleado INT, fechaInicial DATE, fechaFinal DATE)
@@ -261,6 +291,7 @@ END //
 DELIMITER ;
 
 -- 17. Funcion para obtener la cantidad comprada de un insumo en un periodo de tiempo
+DROP FUNCTION IF EXISTS cantidadInsumo;
 
 DELIMITER //
 CREATE FUNCTION cantidadInsumo(_idInsumo INT, fechaInicial DATE, fechaFinal DATE)
@@ -269,9 +300,9 @@ DETERMINISTIC
 BEGIN
     DECLARE cantidadInsumo INT;
 
-    SELECT SUM(io.cantidad) INT cantidadInsumo
+    SELECT SUM(io.cantidad) INTO cantidadInsumo
     FROM InsumoxOrdenCompra io
-    JOIN OrdenCompra oc.idOrdenCompra=io.idOrdenCompra
+    JOIN OrdenCompra oc ON oc.idOrdenCompra=io.idOrdenCompra
     WHERE io.idInsumo=_idInsumo AND oc.fecha BETWEEN fechaInicial AND fechaFinal;
 
     RETURN cantidadInsumo;
@@ -279,6 +310,7 @@ END //
 DELIMITER ;
 
 -- 18. Funcion para calcular los dias que lleva en la empresa un trabajador
+DROP FUNCTION IF EXISTS diasEmpresaEmpleado;
 
 DELIMITER //
 CREATE FUNCTION diasEmpresaEmpleado(_idEmpleado INT) 
@@ -296,6 +328,7 @@ END //
 DELIMITER ;
 
 -- 19. Funcion para obtener el total de ventas de una categoria
+DROP FUNCTION IF EXISTS totalVentasCategoria;
 
 DELIMITER //
 CREATE FUNCTION totalVentasCategoria(_idCategoria INT)
@@ -316,12 +349,15 @@ END //
 DELIMITER ;
 
 -- 20. Funcion para calcular el total gastado en consultas veterinarias en un intervalo de fechas
+DROP FUNCTION IF EXISTS costoConsultasVeterinarias;
+
 DELIMITER //
 CREATE FUNCTION costoConsultasVeterinarias(fechaInicial DATE, fechaFinal DATE)
 RETURNS DECIMAL(10,2)
 DETERMINISTIC
 BEGIN
     DECLARE total DECIMAL(10,2);
-    SELECT SUM (costo) INTO total FROM ConsultaVeterinaria WHERE DATE(fecha) BETWEEN fechaInicial AND fechaFinal
+    SELECT SUM(costo) INTO total FROM ConsultaVeterinaria WHERE DATE(fecha) BETWEEN fechaInicial AND fechaFinal;
+    RETURN total;
 END //
 DELIMITER ;
