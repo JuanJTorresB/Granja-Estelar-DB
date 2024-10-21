@@ -249,12 +249,19 @@ INSERT INTO Cliente (nombre, telefono) VALUES
 ('Julio Fernández', '4567891230'),
 ('Luisa Morales', '5678901234');
 
-INSERT INTO Venta (idCliente, fecha, total) VALUES 
-(1, '2024-10-01', 50000),
-(2, '2024-10-02', 100000),
-(3, '2024-10-03', 75000),
-(4, '2024-10-04', 125000),
-(5, '2024-10-05', 60000);
+INSERT INTO Venta (idCliente, idEmpleado, fecha, total) VALUES 
+(1, 1, '2024-10-01', 50000),
+(2, 2, '2024-10-02', 100000),
+(3, 3, '2024-10-03', 75000),
+(4, 4, '2024-10-04', 125000),
+(5, 5, '2024-10-05', 60000);
+
+INSERT INTO Vacacion (idEmpleado, fechaInicio, fechaFin, estado) VALUES 
+(1, '2024-10-01', '2024-10-08', "Disfrutada"),
+(2, '2024-10-02', '2024-10-09', "Disfrutada"),
+(3, '2024-10-03', '2024-10-10', "Disfrutada"),
+(4, '2024-10-20', '2024-10-27', "Pendiente"),
+(5, '2024-10-20', '2024-10-28', "Pendiente");
 
 INSERT INTO ProductoXVenta (idVenta, idProducto, cantidad) VALUES 
 (1, 1, 10),
