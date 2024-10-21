@@ -23,7 +23,11 @@
 Granja Estelar Database es una base de datos creada en MySQL que busca llevar un registro y facilitar el acceso a informacion sobre la produccion agricola de una granja
 
 ## Requisitos del Sistema 📋
--
+
+- MySQL versión 8.0
+- Cliente MySQL Workbench
+ó
+- CLiente Dbeaver
 
 ## Instalación y Configuración 📦
 ```bash
