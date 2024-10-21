@@ -45,6 +45,14 @@ FROM Insumo i
 JOIN InsumoXProveedor ip
 WHERE ip.costo>=  (SELECT MAX(costo) FROM InsumoXProveedor);
 
+-- 7. Obtener numero de tipos de cultivo para una zona
+
+SELECT tc.nombre, COUNT(c.idCultivo)
+FROM TipoCultivo tc 
+JOIN Cultivo c ON tc.idTipoCultivo=c.idTipoCultivo
+WHERE c.idZona=1
+GROUP BY tc.nombre;
+
 -- 12. Obtener el dinero total que se ha gastado en consultas veterinarias
 
 SELECT SUM(costo) FROM ConsultaVeterinaria;
