@@ -253,7 +253,7 @@
     CREATE TABLE Cliente (
         idCliente INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(255) NOT NULL,
-        telefono CHAR(10) NOT NULL
+        telefono CHAR(10) NOT NULL UNIQUE
     );
 
 
