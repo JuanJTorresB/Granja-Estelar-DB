@@ -222,3 +222,64 @@ SELECT t.nombre, COUNT(r.idRecinto)
 FROM Recinto r
 JOIN TipoRecinto t ON t.idTipoRecinto=r.idTipoRecinto
 GROUP BY t.nombre;
+
+-- 31. Obtener la cantidad de almacenes por zona
+
+SELECT idZona, COUNT(idAlmacen)
+FROM Almacen
+GROUP BY idZona;
+
+-- 32. Obtener los cultivos con un area mayor al promedio
+
+SELECT idCultivo, area
+FROM Cultivo
+WHERE area > (SELECT AVG(area) FROM Cultivo);
+
+-- 33. Obtener la cantidad de insumos que hay en un determinado recinto
+
+SELECT i.nombre, ri.cantidad
+FROM Insumo i
+JOIN RecintoXInsumo ri ON ri.idInsumo=i.idInsumo
+WHERE ri.idRecinto=1;
+
+-- 34. Obtener la cantidad de un producto que se ha obtenido de los cultivos
+SELECT idCultivo, cantidad
+FROM CultivoXProducto
+WHERE idProducto=2;
+
+-- 35. Obtener la cantidad de mantenimientos que se han realizado por tipo de maquinaria
+SELECT tm.nombre, COUNT(mt.idMaquinaria)
+FROM TipoMaquinaria tm
+JOIN Maquinaria m ON m.idTipoMaquinaria=tm.idTipoMaquinaria
+JOIN Mantenimiento mt ON mt.idMaquinaria=m.idMaquinaria
+GROUP BY tm.nombre;
+
+-- 36. Obtener las tareas pendientes del dia
+SELECT tt.nombre,t.descripcion
+FROM Tarea t
+JOIN TipoTarea tt ON t.idTipoTarea=tt.idTipoTarea
+WHERE DATE(t.fechaInicio)=CURDATE() AND t.estado="Pendiente";
+
+-- 37. Obtener los empleados que no se encuentran disponibles en el momento
+SELECT nombre
+FROM Empleado
+WHERE estado="No Disponible";
+
+-- 38. Obtener el numero de tareas por cargo
+SELECT c.nombre, COUNT(et.idEmpleado)
+FROM Cargo c
+JOIN Empleado e ON c.idCargo=e.idCargo
+JOIN EmpleadoXTarea et ON et.idEmpleado=e.idEmpleado
+GROUP BY c.nombre;
+
+-- 39. Obtener los empleados que tienen un salario mayor al promedio de salarios
+SELECT nombre
+FROM Empleado
+WHERE salario>(SELECT AVG(salario) FROM Empleado);
+
+-- 40. Obtener las tareas que se deben realizar para un determinado cultivo
+SELECT tt.nombre,t.descripcion
+FROM TareaXCultivo tc
+JOIN Tarea t ON tc.idTarea=t.idTarea
+JOIN TipoTarea tt ON t.idTipoTarea=tt.idTipoTarea
+WHERE tc.idCultivo=1;
