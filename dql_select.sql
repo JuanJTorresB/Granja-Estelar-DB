@@ -59,7 +59,7 @@ SELECT SUM(costo) FROM ConsultaVeterinaria;
 
 -- 15. Obtener la cantidad de animales en un recinto
 
-SELECT t.nombre, COUNT(a.idAnimal)
+SELECT t.nombre AS "Tipo Animal", COUNT(a.idAnimal) AS "Cantidad en Recinto"
 FROM Animal a
 JOIN TipoAnimal t ON t.idTipoAnimal=a.idTipoAnimal
 WHERE idRecinto=1
@@ -76,3 +76,10 @@ WHERE idAnimal=1;
 SELECT AVG(total)
 FROM Venta
 WHERE fecha BETWEEN "2023-10-20 00:00:00" AND "2024-10-22 00:00:00";
+
+-- 22 Obtener la cantidad de animales enfermos en un recinto
+
+SELECT R.nombre AS Recinto,COUNT(*) AS 'Numero de Animales Enfermos', DATEDIFF(now(),)
+FROM Animal A JOIN Recinto R ON A.idRecinto = R.idRecinto
+WHERE A.estado = 'Enfermo'
+GROUP BY A.idRecinto;
