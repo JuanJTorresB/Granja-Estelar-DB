@@ -90,7 +90,7 @@ SELECT i.nombre, p.nombre, ip.costo
 FROM Insumo i
 JOIN InsumoXProveedor ip ON i.idInsumo=ip.idInsumo
 JOIN Proveedor p ON p.idProveedor=ip.idProveedor
-WHERE i.idTipoInsumo=1 AND ip.costo > (
+WHERE i.idTipoInsumo=1 AND ip.costo < (
 	SELECT AVG(ip2.costo)
     FROM InsumoXProveedor ip2
     JOIN Insumo i2 ON i2.idInsumo=ip2.idInsumo
@@ -337,3 +337,81 @@ GROUP BY e.nombre;
 SELECT nombre, stock
 FROM Producto
 WHERE stock<(SELECT AVG(stock) FROM Producto);
+
+-- 51. Obtener la fecha de la ultima consulta veterinaria realizada para un animal
+SELECT MAX(fecha)
+FROM ConsultaVeterinaria
+WHERE idAnimal=1 AND estado="Realizada";
+
+-- 52. Obtener la cantidad de ordenes de compra por proveedor
+SELECT p.nombre, COUNT(op.idProveedor)
+FROM Proveedor p
+JOIN OrdenCompraXProveedor op ON op.idProveedor=p.idProveedor
+GROUP BY p.nombre;
+
+-- 53. Obtener el dinero gastado por tipo de insumo
+SELECT ti.nombre, SUM(o.total)
+FROM OrdenCompra o
+JOIN InsumoXOrdenCompra io ON o.idOrdenCompra=io.idOrdenCompra
+JOIN Insumo i ON i.idInsumo=io.idInsumo
+JOIN TipoInsumo ti ON ti.idTipoInsumo=i.idTipoInsumo
+GROUP BY ti.nombre;
+
+-- 54. Obtener la fecha de la ultima orden de compra hecha para un insumo y su cantidad
+SELECT o.idOrdenCompra, io.cantidad, o.fecha
+FROM OrdenCompra o
+JOIN InsumoXOrdenCompra io ON io.idOrdenCompra=o.idOrdenCompra
+WHERE io.idInsumo=1 AND o.fecha=(
+	SELECT MAX(o2.fecha)
+    FROM OrdenCompra o2
+    JOIN InsumoXOrdenCompra io2 ON io2.idOrdenCompra=o2.idOrdenCompra
+    WHERE io2.idInsumo=1
+    )
+GROUP BY o.idOrdenCompra, io.cantidad;
+
+-- 55. Obtener el numero de ventas que ha hecho cada empleado
+SELECT e.nombre, COUNT(v.idEmpleado)
+FROM Empleado e
+JOIN Venta v ON v.idEmpleado=e.idEmpleado
+GROUP BY e.nombre;
+
+-- 56. Obtener la ultima fecha en la que un empleado realizo una venta
+SELECT fecha, total
+FROM Venta
+WHERE idEmpleado=1 AND fecha=(
+	SELECT MAX(fecha) 
+    FROM Venta 
+    WHERE idEmpleado=1);
+
+-- 57. Obtener los productos y su cantidad de una venta
+SELECT p.nombre, pv.cantidad
+FROM Producto p
+JOIN ProductoXVenta pv ON pv.idProducto=p.idProducto
+WHERE pv.idVenta=1;
+
+-- 58. Obtener las ultimas vacaciones que disfruto un empleado
+SELECT fechaInicio,fechaFin, DATEDIFF(fechaFin,fechaInicio)
+FROM Vacacion
+WHERE idEmpleado=1 AND estado="Disfrutada" AND fechaFin=(
+	SELECT MAX(fechaFin)
+    FROM Vacacion
+    WHERE idEmpleado=1 AND estado="Disfrutada"
+);
+
+-- 59. Obtener la ultima fecha en la que se vendio un producto y su cantidad
+SELECT v.idVenta, v.fecha, pv.cantidad
+FROM Venta v
+JOIN ProductoXVenta pv ON v.idVenta=pv.idVenta
+WHERE pv.idProducto=1 AND v.fecha=(
+	SELECT MAX(v2.fecha)
+    FROM Venta v2
+    JOIN ProductoXVenta pv2 ON v2.idVenta=pv2.idVenta
+    WHERE pv2.idProducto=1
+);
+
+-- 60. Obtener la cantidad de tipos de recinto en un zona
+SELECT tr.nombre, COUNT(r.idRecinto)
+FROM TipoRecinto tr
+JOIN Recinto r ON r.idTipoRecinto=tr.idTipoRecinto
+WHERE r.idZona=1
+GROUP BY tr.nombre;
