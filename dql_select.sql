@@ -283,3 +283,57 @@ FROM TareaXCultivo tc
 JOIN Tarea t ON tc.idTarea=t.idTarea
 JOIN TipoTarea tt ON t.idTipoTarea=tt.idTipoTarea
 WHERE tc.idCultivo=1;
+
+-- 41. Obtener los empleados asignados a un recinto
+SELECT e.nombre
+FROM Empleado e
+JOIN EmpleadoXTarea et ON et.idEmpleado=e.idEmpleado
+JOIN Tarea t ON t.idTarea=et.idTarea
+JOIN TareaXRecinto tr ON tr.idTarea=t.idTarea
+WHERE tr.idRecinto=1;
+
+-- 42. Obtener el costo total de las ordenes de compra
+SELECT SUM(total)
+FROM OrdenCompra;
+
+-- 43. Obtener las ordenes de compra donde se pidio un determinado insumo y la cantidad que se pidio
+SELECT o.idOrdenCompra, io.cantidad
+FROM OrdenCompra o
+JOIN InsumoXOrdenCompra io ON io.idOrdenCompra=o.idOrdenCompra
+WHERE io.idInsumo=1;
+
+-- 44. Obtener la venta mas costosa
+SELECT idVenta,fecha,total
+FROM Venta
+WHERE total=(SELECT MAX(total) FROM Venta);
+
+-- 45. Obtener la fecha del ultimo mantenimiento realizado a una maquinaria
+SELECT MAX(fecha)
+FROM Mantenimiento
+WHERE idMaquinaria=1; 
+
+-- 46. Obtener el mayor historico
+SELECT total, fecha
+FROM Historico
+WHERE total=(SELECT MAX(total) FROM Historico);
+
+-- 47. Obtener los logs registrados para una determinada entidad
+SELECT mensaje,fecha
+FROM Log
+WHERE idEntidad=1;
+
+-- 48. Obtener la orden de compra mas costosa
+SELECT idOrdenCompra,fecha,total
+FROM OrdenCompra
+WHERE total=(SELECT MAX(total) FROM OrdenCompra);
+
+-- 49. Obtener la cantidad de logs por entidad
+SELECT e.nombre, COUNT(l.idEntidad)
+FROM Entidad e
+JOIN Log l ON l.idEntidad=e.idEntidad
+GROUP BY e.nombre;
+
+-- 50. Obtener los productos con un stock menor al promedio
+SELECT nombre, stock
+FROM Producto
+WHERE stock<(SELECT AVG(stock) FROM Producto);
