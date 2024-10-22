@@ -53,9 +53,56 @@ JOIN Cultivo c ON tc.idTipoCultivo=c.idTipoCultivo
 WHERE c.idZona=1
 GROUP BY tc.nombre;
 
+-- 8. Obtener los productos con un precio mayor al promedio de precios de los productos
+
+SELECT nombre, precio
+FROM Producto
+WHERE precio > (SELECT AVG(precio) FROM Producto);
+
+-- 9. Obtener el numero de empleados que tiene cada cargo
+
+SELECT c.nombre, COUNT(e.idEmpleado)
+FROM Cargo c
+JOIN Empleado e ON c.idCargo=e.idCargo
+GROUP BY c.nombre;
+
+-- 10. Obtener la cantidad de tareas que tiene asignadas cada empleado
+
+SELECT e.nombre, COUNT(et.idTarea)
+FROM Empleado e
+JOIN EmpleadoxTarea et ON e.idEmpleado=et.idEmpleado
+GROUP BY e.nombre;
+
+-- 11. Obtener la cantidad de tareas por el tipo de tarea
+
+SELECT tt.nombre, COUNT(t.idTarea)
+FROM Tarea t
+JOIN TipoTarea tt ON tt.idTipoTarea=t.idTipoTarea
+GROUP BY tt.nombre;
+
 -- 12. Obtener el dinero total que se ha gastado en consultas veterinarias
 
 SELECT SUM(costo) FROM ConsultaVeterinaria;
+
+-- 13. Obtener los insumos de un tipo con un costo menor al costo promedio de ese tipo
+
+SELECT i.nombre, p.nombre, ip.costo
+FROM Insumo i
+JOIN InsumoXProveedor ip ON i.idInsumo=ip.idInsumo
+JOIN Proveedor p ON p.idProveedor=ip.idProveedor
+WHERE i.idTipoInsumo=1 AND ip.costo > (
+	SELECT AVG(ip2.costo)
+    FROM InsumoXProveedor ip2
+    JOIN Insumo i2 ON i2.idInsumo=ip2.idInsumo
+    WHERE i2.idTipoInsumo=1
+);
+
+-- 14. Obtner la cantidad de tipos de cultivo que se han realizado
+
+SELECT tc.nombre, COUNT(c.idCultivo)
+FROM Cultivo c
+JOIN TipoCultivo tc ON tc.idTipoCultivo=c.idTipoCultivo
+GROUP BY tc.nombre;
 
 -- 15. Obtener la cantidad de animales en un recinto
 
@@ -64,6 +111,38 @@ FROM Animal a
 JOIN TipoAnimal t ON t.idTipoAnimal=a.idTipoAnimal
 WHERE idRecinto=1
 GROUP BY t.nombre;
+
+-- 16. Obtener los insumos que se utilizan para un tipo de cultivo especifico
+
+SELECT i.nombre
+FROM Insumo i
+JOIN CultivoXInsumo ci ON ci.idInsumo=i.idInsumo
+JOIN Cultivo c ON c.idCultivo=ci.idCultivo
+WHERE c.idTipoCultivo=2
+GROUP BY i.nombre;
+
+-- 17. Obtener la cantidad de empleados que trabajan cada dia
+
+SELECT d.nombre, COUNT(eh.idEmpleado)
+FROM Dia d
+JOIN Horario h ON h.idDia=d.idDia
+JOIN EmpleadoXHorario eh ON eh.idHorario=h.idHorario
+GROUP BY d.nombre;
+
+-- 18. Obtener los dias de vacaciones que ha tenido un empleado
+
+SELECT SUM(DATEDIFF(fechaFin,fechaInicio))
+FROM Vacacion
+WHERE idEmpleado=5;
+
+-- 19. Obtener los clientes que han comprado un producto
+
+SELECT c.nombre
+FROM Cliente c
+JOIN Venta v ON c.idCliente=v.idCliente
+JOIN ProductoXVenta pv ON pv.idVenta=v.idVenta
+WHERE pv.idProducto=1
+GROUP BY c.nombre;
 
 -- 20. Obtener la cantidad de consultas veterinarias para un animal
 
@@ -79,7 +158,7 @@ WHERE fecha BETWEEN "2023-10-20 00:00:00" AND "2024-10-22 00:00:00";
 
 -- 22 Obtener la cantidad de animales enfermos en un recinto
 
-SELECT R.nombre AS Recinto,COUNT(*) AS 'Numero de Animales Enfermos', DATEDIFF(now(),)
+SELECT R.nombre AS Recinto,COUNT(*) AS 'Numero de Animales Enfermos'
 FROM Animal A JOIN Recinto R ON A.idRecinto = R.idRecinto
 WHERE A.estado = 'Enfermo'
 GROUP BY A.idRecinto;
