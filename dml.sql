@@ -494,12 +494,57 @@ INSERT INTO Categoria (nombre) VALUES
 ('Verduras'),
 ('Frutas');
 
-INSERT INTO Producto (idCategoria, nombre, stock, precio) VALUES 
+INSERT INTO Producto (idCategoria, nombre, stock, precio) VALUES
+(3, 'Trigo', 100, 2500),
+(3, 'Maíz', 300, 3000),
+(3, 'Soya', 150, 3500),
+(3, 'Cebada', 120, 2000),
+(3, 'Arroz', 200, 2000),
+(3, 'Avena', 180, 2200),
+(3, 'Algodón', 50, 4000),
+(3, 'Girasol', 130, 2800),
+(4, 'Papa', 500, 1800),
+(4, 'Remolacha', 150, 2500),
+(5, 'Café', 400, 6000),
+(5, 'Té', 200, 4500),
+(5, 'Cacao', 300, 5000),
+(3, 'Frijol', 100, 3000),
+(3, 'Maní', 80, 3200),
+(3, 'Trigo Duro', 100, 2700),
+(3, 'Mijo', 50, 2600),
+(3, 'Sorgo', 70, 2400),
+(3, 'Arroz de Riego', 150, 2200),
+(3, 'Lenteja', 200, 2800),
+(3, 'Chía', 60, 3400),
+(3, 'Linaza', 70, 3600),
+(3, 'Garbanzos', 120, 3000),
+(4, 'Cebolla', 300, 1700),
+(4, 'Ajo', 200, 3200),
+(4, 'Zanahoria', 250, 1600),
+(4, 'Tomate', 400, 1500),
+(4, 'Pepino', 350, 1200),
+(4, 'Pimiento', 300, 1400),
+(4, 'Lechuga', 450, 1300),
+(4, 'Espinaca', 300, 1600),
+(4, 'Brócoli', 200, 2500),
+(4, 'Coliflor', 180, 2300),
+(4, 'Rábano', 150, 1800),
+(4, 'Cilantro', 100, 1500),
+(4, 'Perejil', 120, 1600),
+(4, 'Albahaca', 80, 3000),
+(4, 'Orégano', 70, 3200),
+(4, 'Menta', 60, 3400),
+(4, 'Romero', 90, 3100),
+(4, 'Tomillo', 100, 2900),
+(4, 'Lavanda', 110, 2700),
+(4, 'Manzanilla', 90, 3500),
+(4, 'Berenjena', 200, 2200),
+(4, 'Calabaza', 180, 2500),
+(5, 'Sandía', 150, 2400),
+(5, 'Melón', 120, 2600),
+(5, 'Uva', 100, 5000),
 (1, 'Leche', 1000, 5000),
 (2, 'Huevos', 500, 20000),
-(3, 'Maíz', 300, 3000),
-(4, 'Arroz', 200, 2000),
-(5, 'Miel', 400, 1000),
 (5, 'Miel', 400, 1000);
 
 INSERT INTO RecintoXProducto (idRecinto, idProducto, cantidad) VALUES 
@@ -755,11 +800,40 @@ INSERT INTO Animal (idTipoAnimal, idRecinto, estado, peso) VALUES
 (6, 7, 'Sano', 350.00);
 
 INSERT INTO ConsultaVeterinaria (idAnimal, fecha, costo, estado) VALUES 
-(1, '2024-10-01 10:00:00', 100000, 'Realizada'),
-(2, '2024-10-02 10:00:00', 50000, 'Por Realizar'),
-(3, '2024-10-03 10:00:00', 150000, 'Por Realizar'),
-(4, '2024-10-04 10:00:00', 80000, 'Realizada'),
-(5, '2024-10-05 10:00:00', 120000, 'Por Realizar');
+(1, '2024-10-22 14:30:00', 100000, 'Realizada'),
+(2, '2024-10-21 14:30:00', 100000, 'Realizada'),
+(4, '2024-10-20 14:30:00', 100000, 'Realizada'),
+(5, '2024-10-19 14:30:00', 100000, 'Realizada'),
+(6, '2024-10-18 14:30:00', 100000, 'Realizada'),
+(7, '2024-10-17 14:30:00', 100000, 'Realizada'),
+(8, '2024-10-16 14:30:00', 100000, 'Realizada'),
+(9, '2024-10-15 14:30:00', 100000, 'Realizada'),
+(10, '2024-10-14 14:30:00', 100000, 'Realizada'),
+(11, '2024-10-13 14:30:00', 100000, 'Realizada'),
+(12, '2024-10-12 14:30:00', 100000, 'Realizada'),
+(13, '2024-10-11 14:30:00', 100000, 'Realizada'),
+(14, '2024-10-10 14:30:00', 100000, 'Realizada'),
+(15, '2024-10-21 14:30:00', 100000, 'Realizada'),
+(16, '2024-10-20 14:30:00', 100000, 'Realizada'),
+(17, '2024-10-19 14:30:00', 100000, 'Realizada'),
+(18, '2024-10-18 14:30:00', 100000, 'Realizada'),
+(19, '2024-10-17 14:30:00', 100000, 'Realizada'),
+(20, '2024-10-16 14:30:00', 100000, 'Realizada'),
+(21, '2024-10-15 14:30:00', 100000, 'Realizada'),
+(22, '2024-10-14 14:30:00', 100000, 'Realizada'),
+(23, '2024-10-13 14:30:00', 100000, 'Realizada'),
+(24, '2024-10-12 14:30:00', 100000, 'Realizada'),
+(25, '2024-10-11 14:30:00', 100000, 'Realizada'),
+(26, '2024-10-10 14:30:00', 100000, 'Realizada'),
+(27, '2024-10-21 14:30:00', 100000, 'Realizada'),
+(28, '2024-10-22 14:30:00', 100000, 'Realizada'),
+(29, '2024-10-20 14:30:00', 100000, 'Realizada'),
+(30, '2024-10-18 14:30:00', 100000, 'Realizada'),
+(3, '2024-11-21 14:30:00', 120000, 'Por Realizar'),
+(31, '2024-11-21 14:30:00', 120000, 'Por Realizar'),
+(32, '2024-11-21 14:30:00', 120000, 'Por Realizar'),
+(33, '2024-11-21 14:30:00', 120000, 'Por Realizar');
+
 
 INSERT INTO Almacen (idZona, nombre) VALUES 
 (1,"Almacen 1"),
@@ -827,7 +901,8 @@ INSERT INTO Cargo (nombre) VALUES
 ('Mecánico de maquinaria'),
 ('Administrador'),
 ('Capataz'),
-('Contador');
+('Contador'),
+('Vendedor');
 
 INSERT INTO Empleado (nombre, idCargo, fechaContratacion, salario) VALUES
 ('Juan Pérez', 1, '2023-01-15', 2000000),
@@ -872,12 +947,12 @@ INSERT INTO Empleado (nombre, idCargo, fechaContratacion, salario) VALUES
 ('Sebastián Palacios', 6, '2024-08-01', 2200000),
 ('Marcos León', 2, '2024-08-10', 1850000),
 ('Antonia Reyes', 1, '2024-08-20', 2100000),
-('Guillermo Rojas', 3, '2024-09-01', 2550000),
-('Natalia Paredes', 4, '2024-09-10', 2250000),
-('Julio Peralta', 5, '2024-09-20', 3150000),
-('Beatriz Molina', 2, '2024-10-01', 1950000),
-('Rodrigo Figueroa', 1, '2024-10-10', 2150000),
-('Silvia Lara', 3, '2024-10-20', 2600000);
+('Guillermo Rojas', 8, '2024-09-01', 2550000),
+('Natalia Paredes', 8, '2024-09-10', 2250000),
+('Julio Peralta', 8, '2024-09-20', 3150000),
+('Beatriz Molina', 8, '2024-10-01', 1950000),
+('Rodrigo Figueroa', 8, '2024-10-10', 2150000),
+('Silvia Lara', 8, '2024-10-20', 2600000);
 
 INSERT INTO Cliente (nombre, telefono) VALUES
 ('Claudia Rojas', '1234567891'),
