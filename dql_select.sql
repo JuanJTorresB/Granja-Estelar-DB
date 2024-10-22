@@ -162,3 +162,63 @@ SELECT R.nombre AS Recinto,COUNT(*) AS 'Numero de Animales Enfermos'
 FROM Animal A JOIN Recinto R ON A.idRecinto = R.idRecinto
 WHERE A.estado = 'Enfermo'
 GROUP BY A.idRecinto;
+
+-- 23. Obtener el promedio de ventas de los empleados que es mayor a 100000
+
+SELECT e.nombre, AVG(v.total)
+FROM Empleado e
+JOIN Venta v ON v.idEmpleado=e.idEmpleado
+GROUP BY e.nombre
+HAVING AVG(v.total)>100000;
+
+-- 24. Obtener la cantidad de un producto que ha vendido cada empleado
+
+SELECT e.nombre, SUM(pv.cantidad)
+FROM Empleado e
+JOIN Venta v ON v.idEmpleado=e.idEmpleado
+JOIN ProductoXVenta pv ON pv.idVenta=v.idVenta
+WHERE pv.idProducto=1
+GROUP BY e.nombre;
+
+-- 25. Obtener la cantidad de maquinaria que se encuentra en mantenimiento
+
+SELECT COUNT(idMaquinaria)
+FROM Maquinaria
+WHERE estado="En Mantenimiento";
+
+-- 26. Obtener la cantidad de maquinaria por tipo de maquinaria
+
+SELECT t.nombre,COUNT(idMaquinaria)
+FROM Maquinaria m
+JOIN TipoMaquinaria t ON t.idTipoMaquinaria=m.idTipoMaquinaria
+GROUP BY t.nombre;
+
+-- 27. Obtener las herramientas que estan en un determinado almacen
+
+SELECT th.nombre, COUNT(ah.idHerramienta)
+FROM AlmacenXHerramienta ah
+JOIN Herramienta h ON h.idHerramienta=ah.idHerramienta
+JOIN TipoHerramienta th ON th.idTipoHerramienta=h.idTipoHerramienta
+WHERE ah.idAlmacen=1
+GROUP BY th.nombre;
+
+-- 28. Obtener animales de un tipo con un peso mayor al promedio de ese tipo
+
+SELECT idAnimal, peso
+FROM Animal
+WHERE idTipoAnimal=1 AND peso>(
+	SELECT AVG(peso) FROM Animal WHERE idTipoAnimal=1
+);
+
+-- 29. Obtener el animal de un tipo con el mayor peso
+
+SELECT idAnimal, peso
+FROM Animal
+WHERE peso = (SELECT MAX(peso) FROM Animal);
+
+-- 30. Obtener la cantidad de recintos por tipo de recinto
+
+SELECT t.nombre, COUNT(r.idRecinto)
+FROM Recinto r
+JOIN TipoRecinto t ON t.idTipoRecinto=r.idTipoRecinto
+GROUP BY t.nombre;
