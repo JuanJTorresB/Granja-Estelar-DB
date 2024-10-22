@@ -175,7 +175,7 @@
     CREATE TABLE Animal (
         idAnimal INT PRIMARY KEY AUTO_INCREMENT,
         idTipoAnimal INT NOT NULL,
-        idRecinto INT NOT NULL,
+        idRecinto INT NULL,
         estado ENUM('Sano', 'Enfermo') NOT NULL,
         peso DECIMAL(10, 2) NOT NULL,
         FOREIGN KEY (idTipoAnimal) REFERENCES TipoAnimal(idTipoAnimal),
