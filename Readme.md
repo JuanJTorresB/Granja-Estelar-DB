@@ -38,7 +38,7 @@ Desde MySQL Workbench o Dbeaver:
 1. Ejecuta el (ddl.sql) para la creacion de la tablas
 2. Ejecuta el (dml.sql) para hacer incersiones dentro de las tablas
 
-Apartir de aqui puedes ejecutar los distintos eventos(dql_eventos.sql), procedimientos(dql_procedimientos.sql), funciones(dql_funciones.sql), triggers(dql_triggers.sql) y consultas(dql_select.sql) desde los archivos o desde este mismo archivo en secciones mas abajo
+- Apartir de aqui puedes ejecutar los distintos eventos(dql_eventos.sql), procedimientos(dql_procedimientos.sql), funciones(dql_funciones.sql), triggers(dql_triggers.sql) y consultas(dql_select.sql) desde los archivos o desde este mismo archivo en secciones mas abajo
 
 ## Estructura de la Base de Datos 🗃️
 
