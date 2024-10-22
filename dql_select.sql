@@ -415,3 +415,71 @@ FROM TipoRecinto tr
 JOIN Recinto r ON r.idTipoRecinto=tr.idTipoRecinto
 WHERE r.idZona=1
 GROUP BY tr.nombre;
+
+-- 61. Obtener el ultimo empleado que fue contratado
+SELECT e.nombre, c.nombre, e.fechaContratacion
+FROM Empleado e
+JOIN Cargo c ON c.idCargo=e.idCargo
+WHERE e.fechaContratacion=(SELECT MAX(fechaContratacion) FROM Empleado);
+
+-- 62. Obtener las tareas relacionadas a un cargo
+SELECT tt.nombre, t.descripcion
+FROM TipoTarea tt
+JOIN Tarea t ON tt.idTipoTarea=t.idTipoTarea
+JOIN EmpleadoXTarea et ON et.idTarea=t.idTarea
+JOIN Empleado e ON e.idEmpleado=et.idEmpleado
+WHERE e.idCargo=1
+GROUP BY tt.nombre, t.descripcion;
+
+-- 63. Obtener el tipo de maquinaria y la cantidad que se encuentra en un determinado almacen
+SELECT tm.nombre, COUNT(am.idMaquinaria)
+FROM TipoMaquinaria tm
+JOIN Maquinaria m ON m.idTipoMaquinaria=tm.idTipoMaquinaria
+JOIN AlmacenXMaquinaria am ON am.idMaquinaria=m.idMaquinaria
+WHERE am.idAlmacen=1
+GROUP BY tm.nombre;
+
+-- 64. Obtener los tipos de animales y su cantidad en una zona
+SELECT ta.nombre, COUNT(a.idAnimal)
+FROM TipoAnimal ta
+JOIN Animal a ON ta.idTipoAnimal=a.idTipoAnimal
+JOIN Recinto r ON r.idRecinto=a.idRecinto
+WHERE r.idZona=1
+GROUP BY ta.nombre;
+
+-- 65. Obtener la cantidad total de productos producidos de los recintos
+SELECT p.nombre, SUM(rp.cantidad)
+FROM Producto p
+JOIN RecintoXProducto rp ON rp.idProducto=p.idProducto
+GROUP BY p.nombre;
+
+-- 66. Obtener la cantidad de un determinado producto que han producto los recintos
+SELECT r.nombre, SUM(rp.cantidad)
+FROM Recinto r
+JOIN RecintoXProducto rp ON rp.idRecinto=r.idRecinto
+WHERE rp.idProducto=1
+GROUP BY r.nombre;
+
+-- 67. Obtener el cliente que ha realizado la ultima compra
+SELECT c.nombre, v.fecha
+FROM Cliente c
+JOIN Venta v ON v.idCliente=c.idCliente
+WHERE v.fecha=(SELECT MAX(fecha) FROM Venta);
+
+-- 68. Obtener el numero de compras que ha hecho cada cliente
+SELECT c.nombre, COUNT(v.idCliente)
+FROM Cliente c
+JOIN Venta v ON v.idCliente=c.idCliente
+GROUP BY c.nombre;
+
+-- 69. Obtener la ultima maquinaria que fue adquirida y su tipo
+SELECT tm.nombre, m.nombre, m.fechaAdquisicion
+FROM Maquinaria m 
+JOIN TipoMaquinaria tm ON tm.idTipoMaquinaria=m.idTipoMaquinaria
+WHERE m.fechaAdquisicion=(SELECT MAX(fechaAdquisicion) FROM Maquinaria);
+
+-- 70. Obtener la ultima tarea que fue terminada
+SELECT tt.nombre, t.fechaFin
+FROM TipoTarea tt
+JOIN Tarea t ON t.idTipoTarea=tt.idTipoTarea
+WHERE t.fechaFin=(SELECT MAX(fechaFin) FROM Tarea);
