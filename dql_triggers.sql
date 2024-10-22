@@ -86,7 +86,7 @@ AFTER UPDATE ON Empleado FOR EACH ROW
 BEGIN
     IF NEW.salario<>OLD.salario THEN
         INSERT INTO Log(idEntidad, mensaje, fecha)
-        -- Revisar id de entidad
+ 
         VALUES(1,CONCAT("Actualizacion salario empleado idEmpleado: ",OLD.idEmpleado," salario anterior: ",OLD.salario," salario nuevo: ",NEW.salario), NOW());
     END IF;
 END //
@@ -140,8 +140,8 @@ AFTER UPDATE ON InsumoXProveedor FOR EACH ROW
 BEGIN
     IF NEW.costo<>OLD.costo THEN
         INSERT INTO Log(idEntidad, mensaje, fecha)
-        -- Revisar id de entidad
-        VALUES(1,CONCAT("Actualizacion costo insumo idInsumo: ",OLD.idInsumo," idProveedor: ",OLD.idProveedor," costo anterior: ",OLD.costo," costo nuevo: ",NEW.costo), NOW());
+
+        VALUES(2,CONCAT("Actualizacion costo insumo idInsumo: ",OLD.idInsumo," idProveedor: ",OLD.idProveedor," costo anterior: ",OLD.costo," costo nuevo: ",NEW.costo), NOW());
     END IF;
 END //
 DELIMITER ;
@@ -166,8 +166,8 @@ AFTER UPDATE ON Producto FOR EACH ROW
 BEGIN
     IF NEW.precio<>OLD.precio THEN
         INSERT INTO Log(idEntidad, mensaje, fecha)
-        -- Revisar id de entidad
-        VALUES(1,CONCAT("Actualizacion precio producto idProducto: ",OLD.idProducto," precio anterior: ",OLD.precio," precio nuevo: ",NEW.precio), NOW());
+
+        VALUES(3,CONCAT("Actualizacion precio producto idProducto: ",OLD.idProducto," precio anterior: ",OLD.precio," precio nuevo: ",NEW.precio), NOW());
     END IF;
 END //
 DELIMITER ;
@@ -180,7 +180,7 @@ CREATE TRIGGER afterInsertEmpleado
 AFTER INSERT ON Empleado FOR EACH ROW
 BEGIN
     INSERT INTO Log(idEntidad, mensaje, fecha)
-    -- Revisar id de entidad
+
     VALUES(1,CONCAT("Inserccion empleado idEmpleado: ",NEW.idEmpleado," idCargo: ",NEW.idCargo," nombre: ",NEW.nombre," estado: ",NEW.estado," fechaContratacion: ",NEW.fechaContratacion," salario: ",NEW.salario), NOW());
 END //
 DELIMITER ;
@@ -194,8 +194,8 @@ AFTER UPDATE ON Animal FOR EACH ROW
 BEGIN
     IF NEW.estado<>OLD.estado THEN
         INSERT INTO Log(idEntidad, mensaje, fecha)
-        -- Revisar id de entidad
-        VALUES(1,CONCAT("Actualizacion estado animal idAnimal: ",OLD.idAnimal," estado anterior: ",OLD.estado," estado nuevo: ",NEW.estado), NOW());
+
+        VALUES(4,CONCAT("Actualizacion estado animal idAnimal: ",OLD.idAnimal," estado anterior: ",OLD.estado," estado nuevo: ",NEW.estado), NOW());
     END IF;
 END //
 DELIMITER ;
@@ -209,7 +209,7 @@ AFTER UPDATE ON Empleado FOR EACH ROW
 BEGIN
     IF NEW.idCargo<>OLD.idCargo THEN
         INSERT INTO Log(idEntidad, mensaje, fecha)
-        -- Revisar id de entidad
+
         VALUES(1,CONCAT("Actualizacion cargo empleado idEmpleado: ",OLD.idEmpleado," idCargo anterior: ",OLD.idCargo," idCargo nuevo: ",NEW.idCargo), NOW());
     END IF;
 END //
@@ -224,8 +224,8 @@ AFTER UPDATE ON Proveedor FOR EACH ROW
 BEGIN
     IF NEW.activo<>OLD.activo THEN
         INSERT INTO Log(idEntidad, mensaje, fecha)
-        -- Revisar id de entidad
-        VALUES(1,CONCAT("Actualizacion activo proveedor idProveedor: ",OLD.idProveedor," activo anterior: ",OLD.activo," activo nuevo: ",NEW.activo), NOW());
+
+        VALUES(5,CONCAT("Actualizacion activo proveedor idProveedor: ",OLD.idProveedor," activo anterior: ",OLD.activo," activo nuevo: ",NEW.activo), NOW());
     END IF;
 END //
 DELIMITER ;
@@ -238,8 +238,8 @@ CREATE TRIGGER afterInsertOrdenCompra
 AFTER INSERT ON OrdenCompra FOR EACH ROW
 BEGIN
     INSERT INTO Log(idEntidad, mensaje, fecha)
-    -- Revisar id de entidad
-    VALUES(1,CONCAT("Inserccion orden compra idOrdenCompra: ",NEW.idOrdenCompra," fecha: ",NEW.fecha," total: ",NEW.total), NOW());
+
+    VALUES(6,CONCAT("Inserccion orden compra idOrdenCompra: ",NEW.idOrdenCompra," fecha: ",NEW.fecha," total: ",NEW.total), NOW());
 END //
 DELIMITER ;
 
@@ -266,8 +266,8 @@ AFTER UPDATE ON Maquinaria FOR EACH ROW
 BEGIN
     IF OLD.estado<>NEW.estado THEN
         INSERT INTO Log(idEntidad, mensaje, fecha)
-        -- Revisar id de entidad
-        VALUES(1,CONCAT("Actualizacion estado maquinaria idMaquinaria: ",OLD.idMaquinaria," estado anterior: ",OLD.estado," estado nuevo: ",NEW.estado), NOW());
+
+        VALUES(7,CONCAT("Actualizacion estado maquinaria idMaquinaria: ",OLD.idMaquinaria," estado anterior: ",OLD.estado," estado nuevo: ",NEW.estado), NOW());
     END IF;
 END //
 DELIMITER ;

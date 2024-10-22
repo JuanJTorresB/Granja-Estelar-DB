@@ -132,9 +132,9 @@ DROP EVENT IF EXISTS registrarBajoStockInsumo;
 CREATE EVENT registrarBajoStockInsumo
 ON SCHEDULE EVERY 1 WEEK
 DO
-    -- Revisar id entidad
+
     INSERT INTO Log(idEntidad,mensaje,fecha)
-    SELECT 1,CONCAT("Insumo con stock bajo ","idInsumo: ",idInsumo," nombre: ",nombre," stock: ",stock), NOW()
+    SELECT 2,CONCAT("Insumo con stock bajo ","idInsumo: ",idInsumo," nombre: ",nombre," stock: ",stock), NOW()
     FROM Insumo
     WHERE stock<20;
 
@@ -175,9 +175,9 @@ DROP EVENT IF EXISTS registrarBajoStockProducto;
 CREATE EVENT registrarBajoStockProducto
 ON SCHEDULE EVERY 1 DAY
 DO
-    -- Revisar id entidad
+
     INSERT INTO Log(idEntidad,mensaje,fecha)
-    SELECT 1, CONCAT("Producto con stock bajo ", "id producto: ",idProducto," nombre: ",nombre," stock: ",stock), NOW()
+    SELECT 3, CONCAT("Producto con stock bajo ", "id producto: ",idProducto," nombre: ",nombre," stock: ",stock), NOW()
     FROM Producto
     WHERE stock<30;
 
@@ -187,9 +187,9 @@ DROP EVENT IF EXISTS registrarPocosProveedoresInsumo;
 CREATE EVENT registrarPocosProveedoresInsumo
 ON SCHEDULE EVERY 1 WEEK
 DO
-    -- Revisar id entidad
+
     INSERT INTO Log(idEntidad,mensaje,fecha)
-    SELECT 1, CONCAT("Pocos proveedores para insumo ","idInsumo ",idInsumo," nombre insumo: ",nombre,"numero de proveedores: ",numeroProveedores(idInsumo)),NOW()
+    SELECT 2, CONCAT("Pocos proveedores para insumo ","idInsumo ",idInsumo," nombre insumo: ",nombre,"numero de proveedores: ",numeroProveedores(idInsumo)),NOW()
     FROM Insumo
     WHERE numeroProveedores(idInsumo)<=2;
 
