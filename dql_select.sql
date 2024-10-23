@@ -483,3 +483,64 @@ SELECT tt.nombre, t.fechaFin
 FROM TipoTarea tt
 JOIN Tarea t ON t.idTipoTarea=tt.idTipoTarea
 WHERE t.fechaFin=(SELECT MAX(fechaFin) FROM Tarea);
+
+-- 71. Obtener el ultimo log que se ha registrado para una entidad
+SELECT mensaje, fecha
+FROM Log
+WHERE idEntidad=1 AND fecha = (SELECT MAX(fecha) FROM Log WHERE idEntidad=1); 
+
+-- 72. Obtener los proveedores que se encuentran inactivos
+SELECT idProveedor, nombre
+FROM Proveedor
+WHERE activo="Inactivo";
+
+-- 73. Obtener el mantenimiento que ha tenido el menor costo
+SELECT mt.idMantenimiento, m.nombre, mt.fecha, mt.costo
+FROM Mantenimiento mt
+JOIN Maquinaria m ON m.idMaquinaria=mt.idMaquinaria
+WHERE mt.costo=(SELECT MIN(costo) FROM Mantenimiento);
+
+-- 74. Obtener el ciente que hizo la compra con el menor valor
+SELECT v.idVenta, c.nombre, v.total
+FROM Venta v
+JOIN Cliente c ON v.idCliente=c.idCliente
+WHERE v.total=(SELECT MIN(total) FROM Venta);
+
+-- 75. Obtener el ultimo historico que se registro
+SELECT fecha, total
+FROM Historico
+WHERE fecha = (SELECT MAX(fecha) FROM Historico);
+
+-- 76. Obtener la cantidad de insumos que se pueden solicitar a cada proveedor
+SELECT p.nombre, COUNT(ip.idProveedor)
+FROM Proveedor p
+JOIN InsumoXProveedor ip ON p.idProveedor=ip.idProveedor
+GROUP BY p.nombre;
+
+-- 77. Obtener la cantidad de animales por tipo de recinto
+SELECT t.nombre, COUNT(a.idAnimal)
+FROM TipoRecinto t
+JOIN Recinto r ON r.idTipoRecinto=t.idTipoRecinto
+JOIN Animal a ON a.idRecinto=r.idRecinto
+GROUP BY t.nombre;
+
+-- 78. Obtener la cantidad de insumos por tipo de recinto
+SELECT t.nombre, i.nombre, COUNT(ri.cantidad)
+FROM TipoRecinto t
+JOIN Recinto r ON r.idTipoRecinto=t.idTipoRecinto
+JOIN RecintoXInsumo ri ON ri.idRecinto=r.idRecinto
+JOIN Insumo i ON i.idInsumo=ri.idInsumo
+GROUP BY t.nombre, i.nombre;
+
+-- 79. Obtener la cantidad de veces que ha estado cada producto en una venta
+SELECT p.nombre, COUNT(pv.idProducto)
+FROM Producto p
+JOIN ProductoXVenta pv ON p.idProducto=pv.idProducto
+GROUP BY p.nombre;
+
+-- 80. Obtener el tipo de herramienta que tiene el menor stock
+SELECT th.nombre, ah.stock
+FROM TipoHerramienta th
+JOIN Herramienta h ON th.idTipoHerramienta=h.idTipoHerramienta
+JOIN AlmacenXHerramienta ah ON ah.idHerramienta=h.idHerramienta
+WHERE ah.stock=(SELECT MIN(stock) FROM AlmacenXHerramienta);
