@@ -44,6 +44,10 @@ Desde MySQL Workbench o Dbeaver:
 
 <img src="Granja Estelar UML E-R JPG.jpg">
 
+En este Documento se especifican las entidades, sus propiedades y las relaciones
+
+[HTML DOCS](https://juanjtorresb.github.io/Granja-Estelar-HTML-Docs/)
+
 
 ## Algunas Consultas 🔎
 
