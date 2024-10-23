@@ -7,20 +7,42 @@
 
 ## Tabla de Contenidos 🔗
 1. [Información General](#información-general-)
-2. [Requisitos del Sistema](#requisitos-del-sistema-)
-3. [Instalación y Configuración](#instalación-y-configuración-)
-4. [Estructura de la Base de Datos](#estructura-de-la-base-de-datos-)
-5. [Algunas Consultas](#algunas-consultas-)
-6. [Procedimientos](#procedimientos-)
-7. [Funciones](#funciones-)
-8. [Triggers](#triggers-)
-9. [Eventos](#eventos-)
-10. [Roles de Usuario y Permisos](#roles-de-usuario-y-permisos-%EF%B8%8F)
-11. [Como Aportar](#como-aportar-)
-12. [Autores](#autores-)
+2. [Requerimientos](#requerimientos-)
+3. [Requisitos del Sistema](#requisitos-del-sistema-)
+4. [Instalación y Configuración](#instalación-y-configuración-)
+5. [Estructura de la Base de Datos](#estructura-de-la-base-de-datos-)
+6. [Algunas Consultas](#algunas-consultas-)
+7. [Procedimientos](#procedimientos-)
+8. [Funciones](#funciones-)
+9. [Triggers](#triggers-)
+10. [Eventos](#eventos-)
+11. [Roles de Usuario y Permisos](#roles-de-usuario-y-permisos-%EF%B8%8F)
+12. [Como Aportar](#como-aportar-)
+13. [Autores](#autores-)
 
 ## Información General 📒
+
 Granja Estelar Database es una base de datos creada en MySQL que busca llevar un registro y facilitar el acceso a informacion sobre la produccion agricola de una granja
+
+## Requerimientos 📌
+
+Algunas de las necesesidades que responde nuestro proyecto es a:
+
+> Control del Inventario:
+
+    Llevar un control preciso del inventario, tanto de insumos (fertilizantes, semillas) como de productos (frutas, vegetales, granos), incluyendo cantidades, fechas de compra y uso, y costo.
+
+> Seguimiento de producción:
+
+    Registrar datos sobre las fechas de siembra, temporadas de cultivos, cosecha, tipos de cultivos y seguimiento de la produccion animal.
+
+> Gestión de costos y ganancias:
+
+    Registrar los costos asociados a la producción agrícola (empleados, insumos) y calcular los ingresos por la venta de productos.
+
+> Historial de ventas y clientes:
+
+    Registrar las ventas realizadas, los productos vendidos, cantidades, precios, y a qué clientes se distribuyeron.
 
 ## Requisitos del Sistema 📋
 
