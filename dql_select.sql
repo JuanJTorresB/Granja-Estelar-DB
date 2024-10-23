@@ -544,3 +544,75 @@ FROM TipoHerramienta th
 JOIN Herramienta h ON th.idTipoHerramienta=h.idTipoHerramienta
 JOIN AlmacenXHerramienta ah ON ah.idHerramienta=h.idHerramienta
 WHERE ah.stock=(SELECT MIN(stock) FROM AlmacenXHerramienta);
+
+-- 81. Obtener la cantidad de maquinarias por zona
+SELECT z.nombre, COUNT(am.idMaquinaria)
+FROM Zona z
+JOIN Almacen a ON a.idZona=z.idZona
+JOIN AlmacenXMaquinaria am ON am.idAlmacen=a.idAlmacen
+GROUP BY z.nombre;
+
+-- 82. Obtener la consulta veterinaria que ha tenido el mayor costo y para que tipo de animal fue
+SELECT c.idConsulta, t.nombre, c.fecha, c.costo
+FROM TipoAnimal t
+JOIN Animal a ON a.idTipoAnimal=t.idTipoAnimal
+JOIN ConsultaVeterinaria c ON c.idAnimal=a.idAnimal
+WHERE c.costo=(SELECT MAX(costo) FROM ConsultaVeterinaria);
+
+-- 83. Obtener el empleado que tiene el mayor salario
+SELECT nombre, salario
+FROM Empleado
+WHERE salario=(SELECT MAX(salario) FROM Empleado);
+
+-- 84. Obtener el numero de productos por categoria
+SELECT c.nombre, COUNT(p.idProducto)
+FROM Categoria c
+JOIN Producto p ON p.idCategoria=c.idCategoria
+GROUP BY c.nombre;
+
+-- 85. Obtener el ultimo cultivo que fue sembrado y su tipo
+SELECT c.idCultivo,t.nombre,c.fechaSiembra
+FROM Cultivo c
+JOIN TipoCultivo t ON t.idTipoCultivo=c.idTipoCultivo
+WHERE c.fechaSiembra=(SELECT MAX(fechaSiembra) FROM Cultivo);
+
+-- 86. Obtener los cultivos que fueron sembrados pero no han sido cosechados
+SELECT idCultivo, fechaSiembra
+FROM Cultivo
+WHERE fechaCosecha>CURDATE();
+
+-- 87. Obtener el tipo de herramienta y su cantidad en una zona
+SELECT th.nombre, ah.stock
+FROM TipoHerramienta th
+JOIN Herramienta h ON th.idTipoHerramienta=h.idTipoHerramienta
+JOIN AlmacenXHerramienta ah ON ah.idHerramienta=h.idHerramienta
+JOIN Almacen a ON a.idAlmacen=ah.idAlmacen
+WHERE a.idZona=2;
+
+-- 88. Obtener los productos y su cantidad en una determinada zona
+SELECT p.nombre, SUM(cp.cantidad)
+FROM Producto p 
+JOIN CultivoXProducto cp ON cp.idProducto=p.idProducto
+JOIN Cultivo c ON c.idCultivo=cp.idCultivo
+WHERE c.idZona=1
+GROUP BY p.nombre
+UNION
+SELECT p.nombre, SUM(rp.cantidad)
+FROM Producto p 
+JOIN RecintoXProducto rp ON rp.idProducto=p.idProducto
+JOIN Recinto r ON r.idRecinto=rp.idRecinto
+WHERE r.idZona=1
+GROUP BY p.nombre;
+
+-- 89. Obtener el promedio de salario por cargo
+SELECT c.nombre, AVG(e.salario)
+FROM Empleado e
+JOIN Cargo c ON c.idCargo=e.idCargo
+GROUP BY c.nombre;
+
+-- 90. Obtener el stock por tipo de herramienta
+SELECT t.nombre, SUM(ah.stock)
+FROM TipoHerramienta t
+JOIN Herramienta h ON h.idTipoHerramienta=t.idTipoHerramienta
+JOIN AlmacenXHerramienta ah ON ah.idHerramienta=h.idHerramienta
+GROUP BY t.nombre;
