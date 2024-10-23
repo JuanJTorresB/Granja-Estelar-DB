@@ -28,19 +28,19 @@ Granja Estelar Database es una base de datos creada en MySQL que busca llevar un
 
 Algunas de las necesesidades que responde nuestro proyecto es a:
 
-> Control del Inventario:
+### Control del Inventario:
 
     Llevar un control preciso del inventario, tanto de insumos (fertilizantes, semillas) como de productos (frutas, vegetales, granos), incluyendo cantidades, fechas de compra y uso, y costo.
 
-> Seguimiento de producción:
+### Seguimiento de producción:
 
     Registrar datos sobre las fechas de siembra, temporadas de cultivos, cosecha, tipos de cultivos y seguimiento de la produccion animal.
 
-> Gestión de costos y ganancias:
+### Gestión de costos y ganancias:
 
     Registrar los costos asociados a la producción agrícola (empleados, insumos) y calcular los ingresos por la venta de productos.
 
-> Historial de ventas y clientes:
+### Historial de ventas y clientes:
 
     Registrar las ventas realizadas, los productos vendidos, cantidades, precios, y a qué clientes se distribuyeron.
 
