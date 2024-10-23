@@ -608,9 +608,9 @@ INSERT INTO TipoTarea (nombre) VALUES
 
 INSERT INTO Tarea (idTipoTarea, fechaInicio, fechaFin, descripcion, estado) VALUES
 (1, '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Alimentar a los animales en el establo', 'Pendiente'),
-(1, '2024-10-02 08:00:00', '2024-10-02 10:00:00', 'Alimentar a los animales en el corral', 'Pendiente'),
+(1, '2024-10-02 08:00:00', '2024-10-02 10:00:00', 'Alimentar a los animales en el Gallinero', 'Pendiente'),
 (1, '2024-10-03 08:00:00', '2024-10-03 10:00:00', 'Alimentar a los animales en el establo', 'Terminada'),
-(1, '2024-10-04 08:00:00', '2024-10-04 10:00:00', 'Alimentar a los animales en el corral', 'Pendiente'),
+(1, '2024-10-04 08:00:00', '2024-10-04 10:00:00', 'Alimentar a los animales en el Gallinero', 'Pendiente'),
 (2, '2024-10-01 08:00:00', '2024-10-01 10:00:00', 'Recolectar Producción de los animales en el establo', 'Pendiente'),
 (2, '2024-10-02 08:00:00', '2024-10-02 10:00:00', 'Recolectar huevos de las gallinas', 'Pendiente'),
 (2, '2024-10-03 08:00:00', '2024-10-03 10:00:00', 'Recolectar leche de las vacas', 'Terminada'),
@@ -635,25 +635,25 @@ INSERT INTO Tarea (idTipoTarea, fechaInicio, fechaFin, descripcion, estado) VALU
 (7, '2024-10-15 08:00:00', '2024-10-15 12:00:00', 'Fertilizar los cultivos de trigo', 'Pendiente'),
 (7, '2024-10-16 08:00:00', '2024-10-16 12:00:00', 'Fertilizar los cultivos de cebada', 'Pendiente'),
 (7, '2024-10-17 08:00:00', '2024-10-17 12:00:00', 'Fertilizar los cultivos de arroz', 'Pendiente'),
-(8, '2024-10-18 08:00:00', '2024-10-18 10:00:00', 'Limpieza de corrales', 'Pendiente'),
+(8, '2024-10-18 08:00:00', '2024-10-18 10:00:00', 'Limpieza de Gallinero', 'Pendiente'),
 (8, '2024-10-19 08:00:00', '2024-10-19 10:00:00', 'Limpieza de establos', 'Terminada'),
-(8, '2024-10-20 08:00:00', '2024-10-20 10:00:00', 'Limpieza de corrales', 'Pendiente'),
+(8, '2024-10-20 08:00:00', '2024-10-20 10:00:00', 'Limpieza de Gallinero', 'Pendiente'),
 (8, '2024-10-21 08:00:00', '2024-10-21 10:00:00', 'Limpieza de establos', 'Pendiente'),
 (9, '2024-10-22 08:00:00', '2024-10-22 09:30:00', 'Ordenar el establo', 'Pendiente'),
-(9, '2024-10-23 08:00:00', '2024-10-23 09:30:00', 'Ordenar el corral', 'Pendiente'),
+(9, '2024-10-23 08:00:00', '2024-10-23 09:30:00', 'Ordenar el Gallinero', 'Pendiente'),
 (9, '2024-10-24 08:00:00', '2024-10-24 09:30:00', 'Ordenar el establo', 'Terminada'),
-(9, '2024-10-25 08:00:00', '2024-10-25 09:30:00', 'Ordenar el corral', 'Pendiente'),
+(9, '2024-10-25 08:00:00', '2024-10-25 09:30:00', 'Ordenar el Gallinero', 'Pendiente'),
 (10, '2024-10-26 08:00:00', '2024-10-26 12:00:00', 'Sembrar nuevos cultivos de maíz', 'Pendiente'),
 (10, '2024-10-27 08:00:00', '2024-10-27 12:00:00', 'Sembrar nuevos cultivos de trigo', 'Pendiente'),
 (10, '2024-10-28 08:00:00', '2024-10-28 12:00:00', 'Sembrar nuevos cultivos de cebada', 'Terminada'),
 (10, '2024-10-29 08:00:00', '2024-10-29 12:00:00', 'Sembrar nuevos cultivos de arroz', 'Pendiente');
 
 INSERT INTO TareaXRecinto (idTarea, idRecinto) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5);
+(1,1),
+(2,3),
+(3,2),
+(4,4),
+(4,4);
 
 INSERT INTO TipoAnimal (nombre) VALUES 
 ('Vaca'),
