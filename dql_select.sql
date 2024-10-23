@@ -616,3 +616,60 @@ FROM TipoHerramienta t
 JOIN Herramienta h ON h.idTipoHerramienta=t.idTipoHerramienta
 JOIN AlmacenXHerramienta ah ON ah.idHerramienta=h.idHerramienta
 GROUP BY t.nombre;
+
+-- 91. Obtener el numero de consultas veterinarias por realizar
+SELECT COUNT(idConsulta)
+FROM ConsultaVeterinaria
+WHERE estado="Por Realizar";
+
+-- 92. Obtener la duracion de cada tarea en horas
+SELECT tt.nombre, t.descripcion, TIMESTAMPDIFF(HOUR,fechaInicio,fechaFin)
+FROM TipoTarea tt
+JOIN Tarea t ON t.idTipoTarea=tt.idTipoTarea;
+
+-- 93. Obtener el tipo de cultivo con la temporada mas grande
+SELECT nombre, DATEDIFF(FinTemporada,inicioTemporada)
+FROM TipoCultivo
+WHERE DATEDIFF(FinTemporada,inicioTemporada)=(SELECT MAX(DATEDIFF(FinTemporada,inicioTemporada)) FROM TipoCultivo);
+
+-- 94. Obtener el empleado que ha tenido la vacacion mas larga
+SELECT e.nombre, DATEDIFF(v.fechaFin,v.fechaInicio)
+FROM Empleado e
+JOIN Vacacion v ON v.idEmpleado=e.idEmpleado
+WHERE DATEDIFF(v.fechaFin,v.fechaInicio)=(SELECT MAX(DATEDIFF(v.fechaFin,v.fechaInicio)) FROM Vacacion v);
+
+-- 95. Obtener el numero de empleados que tienen vacaciones pendientes
+SELECT COUNT(idEmpleado)
+FROM Vacacion
+WHERE estado="Pendiente";
+
+-- 96. Obtener las horas trabajadas por cada empleado en un dia
+SELECT e.nombre, TIME_TO_SEC(TIMEDIFF(horaFin,horaInicio))/3600
+FROM Empleado e
+JOIN EmpleadoXHorario eh ON eh.idEmpleado=e.idEmpleado
+JOIN Horario h ON h.idHorario=eh.idHorario
+WHERE h.idDia=DAYOFWEEK("2024-10-20");
+
+-- 97. Obtener los insumos y la cantidad de una orden de compra
+SELECT i.nombre,io.cantidad
+FROM Insumo i
+JOIN InsumoXOrdenCompra io ON i.idInsumo=io.idInsumo
+WHERE io.idOrdenCompra=1;
+
+-- 98. Obtener la cantidad de logs que hay registrados para cada entidad
+SELECT e.nombre, COUNT(l.idEntidad)
+FROM Entidad e
+JOIN Log l ON l.idEntidad=e.idEntidad
+GROUP BY e.nombre;
+
+-- 99. Obtener la tarea que tarda mas tiempo en realizarse
+SELECT tt.nombre, t.descripcion, TIMESTAMPDIFF(HOUR,fechaInicio,fechaFin)
+FROM TipoTarea tt
+JOIN Tarea t ON t.idTipoTarea=tt.idTipoTarea
+WHERE TIMESTAMPDIFF(HOUR,fechaInicio,fechaFin)=(SELECT MAX(TIMESTAMPDIFF(HOUR,fechaInicio,fechaFin)) FROM Tarea)
+GROUP BY tt.nombre, t.descripcion, TIMESTAMPDIFF(HOUR,fechaInicio,fechaFin);
+
+-- 100. Obtener las fechas donde el historico fue mayor al promedio
+SELECT fecha, total
+FROM Historico
+WHERE total>(SELECT AVG(total) FROM Historico);
